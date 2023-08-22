@@ -21,7 +21,8 @@ class ParticipantController extends Controller
 
     public function view()
     {
-        $content = view('admin.participant.view');
+        $data['events'] = $this->repo->getEvent();
+        $content = view('admin.participant.view', $data);
         return view('admin.main', compact('content'));
     }
 
@@ -110,7 +111,7 @@ class ParticipantController extends Controller
             }
             $arr[] = [
                 'created_at' => Carbon::createFromDate(1900, 1, 1)->addDays((int)trim($i[1]) - 2)->format('Y-m-d'),
-                'event_id' => 1,
+                'event_id' => request('event_id'),
                 'nama' => trim($i[2]),
                 'jabatan' => trim($i[3]),
                 'no_hp' => trim($i[12]),

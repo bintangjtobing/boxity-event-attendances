@@ -2,8 +2,11 @@
 
 namespace App\Repository\admin;
 
-use App\Events;
 use Exception;
+use App\Events;
+use App\Participants;
+use Carbon\Carbon;
+use Illuminate\Support\Str;
 
 class EventRepository
 {
@@ -22,28 +25,72 @@ class EventRepository
     }
 
     function add() {
-        dd(request());
+        $request_start_time = request('start_time');
+        $request_end_time = request('end_time');
+        $start_date = Carbon::parse(request('date-range-from'))->format('Y-m-d');
+        $end_date = Carbon::parse(request('date-range-to'))->format('Y-m-d');
+
+        // Membuat instansi Carbon dari nilai yang diterima dengan format yang sesuai
+        $carbonStartTime = Carbon::createFromFormat('g : i A', $request_start_time);
+        $carbonEndTime = Carbon::createFromFormat('g : i A', $request_end_time);
+
+        // Menggunakan format 'H:i:s' untuk memformat waktu
+        $start_time = $carbonStartTime->format('H:i:s');
+        $end_time = $carbonEndTime->format('H:i:s');
+        $datetime = Carbon::parse(request('date-range-from') . ' ' . $start_time)->format('Y-m-d H:i:s');
+        if ($datetime < Carbon::now()->format('Y-m-d H:i:s')) {
+            return [
+                'status' => false,
+                'message' => 'Date start must be greater than today'
+            ];
+        }
+        // Generate unique token
+        $token = Str::random(32); // Menghasilkan token acak dengan panjang 32 karakter
+        // Periksa keunikan token
+        while (Events::where('token', $token)->exists()) {
+            $token = Str::random(32);
+        }
         $data = [
             'name' => request('name'),
             'location' => request('location'),
-            'start_date' => request('start_date'),
-            'end_date' => request('end_date'),
-            'start_time' => request('start_time'),
-            'end_time' => request('end_time'),
-            'link' => request('link')
+            'start_date' => $start_date,
+            'end_date' => $end_date,
+            'start_time' => $start_time,
+            'end_time' => $end_time,
+            'token' => $token,
+            'status' => request('status')
         ];
         Events::create($data);
     }
 
     function update($id) {
+        $request_start_time = request('start_time');
+        $request_end_time = request('end_time');
+        $start_date = Carbon::parse(request('date-range-from'))->format('Y-m-d');
+        $end_date = Carbon::parse(request('date-range-to'))->format('Y-m-d');
+
+        // Membuat instansi Carbon dari nilai yang diterima dengan format yang sesuai
+        $carbonStartTime = Carbon::createFromFormat('g : i A', $request_start_time);
+        $carbonEndTime = Carbon::createFromFormat('g : i A', $request_end_time);
+
+        // Menggunakan format 'H:i:s' untuk memformat waktu
+        $start_time = $carbonStartTime->format('H:i:s');
+        $end_time = $carbonEndTime->format('H:i:s');
+        $datetime = Carbon::parse(request('date-range-from') . ' ' . $start_time)->format('Y-m-d H:i:s');
+        if ($datetime < Carbon::now()->format('Y-m-d H:i:s')) {
+            return [
+                'status' => false,
+                'message' => 'Date start must be greater than today'
+            ];
+        }
         $data = [
             'name' => request('name'),
             'location' => request('location'),
-            'start_date' => request('start_date'),
-            'end_date' => request('end_date'),
-            'start_time' => request('start_time'),
-            'end_time' => request('end_time'),
-            'link' => request('link')
+            'start_date' => $start_date,
+            'end_date' => $end_date,
+            'start_time' => $start_time,
+            'end_time' => $end_time,
+            'status' => request('status')
         ];
         Events::find($id)->update($data);
     }
@@ -51,4 +98,112 @@ class EventRepository
     function delete($id) {
         Events::find($id)->delete();
     }
+
+    function getSingleEvent($token) {
+        $data = Events::where('token', $token)->first();
+        return $data;
+    }
+
+    function processRegister($token) {
+        $event = Events::where('token', $token)->first();
+        $participants = Participants::whereHas('Event', function($event) use($token) {
+            $event->where('token', $token);
+        });
+
+        //check email sudah ada atau belum
+        if (count($participants->where('email', request('email'))->get()) > 0) {
+            return [
+                'status' => false,
+                'message' => 'You Email already registered for this event'
+            ];
+        }
+
+        //check phone sudah ada atau belum
+        if (count($participants->where('phone', request('phone'))->get()) > 0) {
+            return [
+                'status' => false,
+                'message' => 'You Phone number already registered for this event'
+            ];
+        }
+
+        $participants = $participants->get();
+
+        //check event masih aktif atau tidak
+        if ($event->status != 'active') {
+            return [
+                'status' => false,
+                'message' => 'Event is not active'
+            ];
+        }
+
+        if (count($participants) != 0) {
+            return [
+                'status' => false,
+                'message' => 'You have already registered for this event'
+            ];
+        }
+
+        do {
+            $qr_code = Str::random(10);
+            $count = Participants::where('qr_code', $qr_code)->count();
+        } while ($count > 0);
+
+        $latestParticipant = Participants::latest()->first();
+        if ($latestParticipant) {
+            $lastNumber = intval(substr($latestParticipant->participant_id, 1));
+            $newNumber = $lastNumber + 1;
+        } else {
+            $newNumber = 1;
+        }
+        $newParticipantId = 'P' . str_pad($newNumber, 5, '0', STR_PAD_LEFT);
+
+        $data = [
+            'participant_id' => $newParticipantId,
+            'event_id' => request('event_id'),
+            'name' => request('name'),
+            'jabatan' => request('jabatan'),
+            'no_hp' => request('no_hp'),
+            'instansi' => request('instansi'),
+            'alamat_instansi' => request('alamat_instansi'),
+            'tanggal_kedatangan' => Carbon::parse(request('date-range-from')),
+            'penginapan' => request('penginapan'),
+            'tanggal_kembali' => Carbon::parse(request('date-range-to')),
+            'qr_code' => $qr_code,
+        ];
+        Participants::create($data);
+
+        return [
+            'status' => true,
+            'message' => 'Registration success',
+            'token' => $qr_code
+        ];
+    }
+
+    // public function sendBarcode($token)
+    // {
+    //     $image = QrCode::format('png')->size(200)->generate($token);
+    //     $output_file = public_path('images/event/qr-code/img-' . time() . '.png');
+    //     file_put_contents($output_file, $image);
+    //     $participant = Participants::with('Event')->where('barcode', $token)->first();
+    //     $event = Events::find($participant->events_id);
+    //     if ($event->has_checkin_limit == 1) {
+    //         $start_time = Carbon::parse($event->start_time - $event->checkin_start_limit)->format('H:i');
+    //         $end_time = Carbon::parse($event->start_time + $event->checkin_end_limit)->format('H:i');
+    //     } else {
+    //         $start_time = null;
+    //         $end_time = null;
+    //     }
+    //     $data = [
+    //         'name' => $participant->name,
+    //         'email' => request('email'),
+    //         'qrcode_link' => $output_file,
+    //         'title' => $event->title,
+    //         'date' => Carbon::parse($event->date)->isoFormat('D MMMM Y'),
+    //         'start_time' => $event->start_time,
+    //         'has_checkin_limit' => $event->has_checkin_limit,
+    //         'start_time' =>$start_time,
+    //         'end_time' => $end_time
+    //     ];
+    //     SendQrCodeJob::dispatch($data);
+    // }
 }

@@ -95,4 +95,60 @@ class EventController extends Controller
         }
         return response()->json($message);
     }
+
+    public function register($token)
+    {
+        $data['event'] = $this->repo->getSingleEvent($token);
+
+        if (!$data['event']) {
+            return view('admin.event.register.not_found');
+        }
+        if ($data['event']->status == 'inactive') {
+            return view('admin.event.register.inactive');
+
+        }
+        $timezone = 'Asia/Jakarta';
+        $currentTime = \Carbon\Carbon::now($timezone);
+        $currentDate = \Carbon\Carbon::now($timezone)->format('Y-m-d');
+
+        if (\Carbon\Carbon::parse($data['event']->start_date) < $currentDate) {
+            return view('admin.event.register.expired');
+        }
+
+        $datetime_event = \Carbon\Carbon::parse($data['event']->start_date . ' ' . $data['event']->start_time);
+        if ($datetime_event->format('Y-m-d H:i:s') < $currentTime->format('Y-m-d H:i:s')) {
+            return view('admin.event.register.has_started');
+        }
+
+
+        return view('admin.event.register.register', $data);
+    }
+
+    public function processRegistration(Request $request, $token)
+    {
+        DB::beginTransaction();
+        try {
+            $check = $this->repo->processRegister($token);
+            if ($check['status'] == true) {
+                // $this->repo->sendBarcode($check['token']);
+                DB::commit();
+                $message = [
+                    'status' => true,
+                    'message' => $check['message']
+                ];
+            } else {
+                $message = [
+                    'status' => false,
+                    'error' => $check['message']
+                ];
+            }
+        } catch (\Exception $exception) {
+            DB::rollback();
+            $message = [
+                'status' => false,
+                'error' => $exception->getMessage()
+            ];
+        }
+        return response()->json($message);
+    }
 }

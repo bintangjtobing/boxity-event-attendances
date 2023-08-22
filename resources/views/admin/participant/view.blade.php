@@ -194,8 +194,27 @@
     }
 
     function importParticipant() {
-        let formData = new FormData($('#formImport')[0]); // Menggunakan FormData untuk mengambil data
-
+        let formData = new FormData($('#formImport')[0]);
+        if ($('#upload-1').val() == '') {
+            Swal.fire({
+                timer: 2000,
+                icon: 'error',
+                text: 'Please upload file first',
+                showConfirmButton: false,
+                timer: 1500
+            })
+            return false;
+        }
+        if ($('.event_id').val() == '') {
+            Swal.fire({
+                timer: 2000,
+                icon: 'error',
+                text: 'Please select event first',
+                showConfirmButton: false,
+                timer: 1500
+            })
+            return false;
+        }
         $.ajax({
             url: `participant/import`,
             method: 'POST',
@@ -217,11 +236,13 @@
                     )
                 } else {
                     Swal.fire({
+                        timer: 2000,
                         icon: 'error',
-                        title: 'Error!',
                         text: data.message,
-                        confirmButtonText: 'Close'
+                        showConfirmButton: false,
+                        timer: 1500
                     })
+                    return false;
                 }
             },
             error: function(error) {

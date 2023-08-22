@@ -46,6 +46,7 @@
 <script src="{{ asset('assets/theme_assets/js/jvectormap-init.js') }}"></script>
 <script src="{{ asset('assets/theme_assets/js/leaflet-init.js') }}"></script>
 <script src="{{ asset('assets/theme_assets/js/main.js') }}"></script>
+<script src="{{ asset('assets/theme_assets/js/participant.js') }}"></script>
 <script>
     function realtimeClock() {
         var rtClock = new Date();

@@ -9,10 +9,12 @@ class Events extends Model
     protected $table = 'events';
     protected $fillable = [
         'name',
-        'description',
+        'location',
         'start_date',
         'end_date',
-        'is_active',
-        'is_deleted'
+        'start_time',
+        'end_time',
+        'token',
+        'status'
     ];
 }

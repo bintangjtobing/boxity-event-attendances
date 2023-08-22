@@ -111,39 +111,26 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-md">
-                                        <label for="event_date" class="il-gray fs-14 fw-500 align-center">Event
-                                            Date</label>
-                                        <div class="row" id="event_date">
+                                        <div class="row">
                                             <div class="col-md">
-                                                <div class="form-group row form-group-calender">
-                                                    <div class="col-sm-3 d-flex aling-items-center">
-                                                        <label for="datepicker9"
-                                                            class=" col-form-label color-dark fs-14 fw-500 align-center">Start</label>
+                                                <label for="event_date"
+                                                    class="il-gray fs-14 fw-500 align-center">Tanggal Mulai Event &
+                                                    Tanggal Berakhir Event</label>
+                                                <div
+                                                    class="atbd-date-ranger position-relative d-flex align-items-center">
+                                                    <div class="form-group mb-0">
+                                                        <input type="text" name="date-range-from"
+                                                            class="form-control form-control-default" id="start_date"
+                                                            placeholder="Tanggal Mulai">
                                                     </div>
-                                                    <div class="col-sm-9">
-                                                        <div class="position-relative">
-                                                            <input type="text"
-                                                                class="form-control  ih-medium ip-light radius-xs b-light px-15"
-                                                                id="datepicker9" placeholder="01/10/2021">
-                                                            <a href="#"><span data-feather="calendar"></span></a>
-                                                        </div>
+                                                    <span class="divider">-</span>
+                                                    <div class="form-group mb-0">
+                                                        <input type="text" name="date-range-to"
+                                                            class="form-control form-control-default" id="end_time"
+                                                            placeholder="Tanggal Berakhir">
                                                     </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md">
-                                                <div class="form-group row form-group-calender">
-                                                    <div class="col-sm-3 d-flex aling-items-center">
-                                                        <label for="datepicker9"
-                                                            class=" col-form-label color-dark fs-14 fw-500 align-center">End</label>
-                                                    </div>
-                                                    <div class="col-sm-9">
-                                                        <div class="position-relative">
-                                                            <input type="text"
-                                                                class="form-control  ih-medium ip-light radius-xs b-light px-15"
-                                                                id="datepicker9" placeholder="01/10/2021">
-                                                            <a href="#"><span data-feather="calendar"></span></a>
-                                                        </div>
-                                                    </div>
+                                                    <a class="date-picker-icon" href="#"><span
+                                                            data-feather="calendar"></span></a>
                                                 </div>
                                             </div>
                                         </div>
@@ -168,7 +155,8 @@
                                                                     </span>
                                                                     <input type="text"
                                                                         class="form-control ih-medium ip-light radius-xs b-light px-15 color-light"
-                                                                        id="time-picker" placeholder="12:00 AM">
+                                                                        id="time-picker" placeholder="12:00 AM"
+                                                                        name="start_time">
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -191,7 +179,8 @@
                                                                     </span>
                                                                     <input type="text"
                                                                         class="form-control ih-medium ip-light radius-xs b-light px-15 color-light"
-                                                                        id="time-picker" placeholder="12:00 AM">
+                                                                        id="time-picker" placeholder="12:00 AM"
+                                                                        name="end_time">
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -201,19 +190,12 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <label for="formGroupExampleInput"
-                                        class="color-dark fs-14 fw-500 align-center">Link</label>
-                                    <input type="text"
-                                        class="form-control ih-medium ip-gray radius-xs b-light px-15"
-                                        id="formGroupExampleInput" name="link">
-                                </div>
                                 <div class="layout-button mt-25">
                                     <button type="button"
                                         class="btn btn-default btn-squared border-normal bg-normal px-20"
                                         onclick="window.location.href='{{ route('event_view_index') }}';">back</button>
                                     <button type="submit"
-                                        class="btn btn-primary btn-default btn-squared px-30">save</button>
+                                        class="btn btn-primary btn-default btn-squared px-30 submit">save</button>
                                 </div>
                             </form>
                         </div>

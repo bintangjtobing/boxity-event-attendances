@@ -73,8 +73,8 @@
                         </div>
                     </div> --}}
                     <div class="action-btn">
-                        {{-- <a href="{{ route('event_add_view') }}" class="btn btn-sm btn-primary btn-add">
-                            <i class="la la-plus"></i> Add New</a> --}}
+                        <a href="{{ route('event_add_view') }}" class="btn btn-sm btn-primary btn-add">
+                            <i class="la la-plus"></i> Add New</a>
                     </div>
                 </div>
             </div>
@@ -86,32 +86,8 @@
                 <div class="card-header color-dark fw-500">
                     {{ Helper::getCurrentUrlAdmin() }} Data
                 </div>
-                <div class="card-body p-0">
-                    <div class="table4  p-25 bg-white mb-30">
-                        <div class="table-responsive">
-                            <table class="table mb-0">
-                                <thead>
-                                    <tr class="userDatatable-header">
-                                        <th>
-                                            <span class="userDatatable-title">No</span>
-                                        </th>
-                                        <th>
-                                            <span class="userDatatable-title">Event Name</span>
-                                        </th>
-                                        <th>
-                                            <span class="userDatatable-title">Datetime</span>
-                                        </th>
-                                        {{-- <th>
-                                            <span class="userDatatable-title float-right">Action</span>
-                                        </th> --}}
-                                    </tr>
-                                </thead>
-                                <tbody id="data">
+                <div class="card-body p-0" id="data">
 
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>

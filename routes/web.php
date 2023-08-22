@@ -33,6 +33,10 @@ Route::prefix('/')->group(function () {
     Route::post('/login', [AdminAuthController::class, 'processLogin']);
     Route::get('/logout', [AdminAuthController::class, 'processLogout'])->name('admin_logout');
 
+    //Register Event
+    Route::get('/register/{token}', [AdminEventController::class, 'register'])->name('events_register');
+    Route::post('/register/{token}', [AdminEventController::class, 'processRegistration'])->name('event_processRegistration');
+
     Route::namespace('Admin')->middleware(['admin'])->group(function () {
         Route::prefix('/dashboard')->group(function () {
             Route::get('/', [AdminDashboardController::class, 'view'])->name('dashboard_view_admin');

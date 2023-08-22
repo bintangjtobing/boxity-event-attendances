@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Boxity | 404</title>
+    <title>Boxity | Event Has Started</title>
 
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
@@ -61,14 +61,14 @@
                     <!-- Start: error page -->
                     <div class="min-vh-100 content-center">
                         <div class="error-page text-center">
-                            <img src="img/svg/404.svg" alt="404" class="svg">
-                            <div class="error-page__title">404</div>
-                            <h5 class="fw-500">Sorry! the page you are looking for doesn't exist.</h5>
-                            <div class="content-center mt-30">
+                            <img src="{{ asset('img/svg/404.svg') }}" alt="404" class="svg">
+                            <div class="error-page__title">400</div>
+                            <h5 class="fw-500">Event Has Started</h5>
+                            {{-- <div class="content-center mt-30">
                                 <a href="{{ route('dashboard_view_admin') }}"
                                     class="btn btn-primary btn-default btn-squared px-30">Return
                                     Home</a>
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
                     <!-- End: error page -->

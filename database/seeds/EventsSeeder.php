@@ -1,6 +1,7 @@
 <?php
 
 use App\Events;
+use Illuminate\Support\Str;
 use Illuminate\Database\Seeder;
 
 class EventsSeeder extends Seeder
@@ -20,7 +21,8 @@ class EventsSeeder extends Seeder
                 'end_date' => '2023-09-01',
                 'start_time' => '09:00:00',
                 'end_time' => '17:00:00',
-                'link' => 'rakernas-I-dan-sarasehan-abpptsi'
+                'token' => Str::random(32),
+                'status' =>'active'
             ],
         ]);
     }

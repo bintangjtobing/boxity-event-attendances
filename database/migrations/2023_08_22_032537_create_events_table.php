@@ -21,7 +21,8 @@ class CreateEventsTable extends Migration
             $table->date('end_date');
             $table->time('start_time');
             $table->time('end_time');
-            $table->string('link', 45);
+            $table->string('token', 32);
+            $table->enum('status', ['active', 'inactive']);
             $table->timestamps();
         });
     }
