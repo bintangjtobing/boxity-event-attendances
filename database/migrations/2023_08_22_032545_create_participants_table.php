@@ -17,6 +17,7 @@ class CreateParticipantsTable extends Migration
             $table->string('participant_id', 45)->primary();
             $table->unsignedInteger('event_id');
             $table->string('name', 150)->unique();
+            $table->string('email')->nullable();
             $table->string('jabatan');
             $table->string('no_hp',45)->nullable();
             $table->string('instansi');
@@ -25,6 +26,7 @@ class CreateParticipantsTable extends Migration
             $table->text('penginapan');
             $table->date('tanggal_kembali');
             $table->text('qr_code');
+            $table->text('qr_code_file_name')->nullable();
             $table->timestamps();
 
             $table->foreign('event_id')->references('id')->on('events');

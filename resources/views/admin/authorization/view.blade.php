@@ -130,7 +130,6 @@
             method: 'GET',
             success: function(data) {
                 $('#data').html(data);
-                window.location.reload();
             },
             error: function(error) {
                 toastr['error']('Something Error');
@@ -151,6 +150,7 @@
                     text: 'Edit Successful',
                 });
                 getData();
+                window.location.reload();
             },
             error: function(error) {
                 Swal.fire({

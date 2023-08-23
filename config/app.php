@@ -175,7 +175,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         Maatwebsite\Excel\ExcelServiceProvider::class,
-
+        SimpleSoftwareIO\QrCode\QrCodeServiceProvider::class,
     ],
 
     /*
@@ -230,6 +230,7 @@ return [
         'Helper' => App\Helper\Helper::class,
         'Carbon' => \Carbon\Carbon::class,
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
+        'QrCode' => SimpleSoftwareIO\QrCode\Facades\QrCode::class
     ],
 
 ];

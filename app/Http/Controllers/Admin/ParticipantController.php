@@ -9,14 +9,16 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Repository\admin\ParticipantRepository;
+use App\Repository\admin\SendQrRepository;
 
 class ParticipantController extends Controller
 {
-    protected $repo;
+    protected $repo, $qr_code;
 
     public function __construct()
     {
         $this->repo = new ParticipantRepository;
+        $this->qr_code = new SendQrRepository;
     }
 
     public function view()
@@ -50,10 +52,19 @@ class ParticipantController extends Controller
         DB::beginTransaction();
         try {
             $data = $this->repo->add();
-            DB::commit();
-            $message = [
-                'status' => true,
-            ];
+            if($data['status'] == true) {
+                $this->qr_code->sendQrCode($data['token']);
+                DB::commit();
+                $message = [
+                    'status' => true,
+                ];
+            } else {
+                DB::rollback();
+                $message = [
+                    'status' => false,
+                    'error' => $data['error']
+                ];
+            }
         } catch (\Exception $exception) {
             DB::rollback();
             $message = [

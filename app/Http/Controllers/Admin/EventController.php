@@ -6,14 +6,16 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Repository\admin\EventRepository;
+use App\Repository\admin\SendQrRepository;
 
 class EventController extends Controller
 {
-    protected $repo;
+    protected $repo, $qr_code;
 
     public function __construct()
     {
         $this->repo = new EventRepository;
+        $this->qr_code = new SendQrRepository;
     }
 
     public function view()
@@ -130,7 +132,7 @@ class EventController extends Controller
         try {
             $check = $this->repo->processRegister($token);
             if ($check['status'] == true) {
-                // $this->repo->sendBarcode($check['token']);
+                $this->qr_code->sendQrCode($check['token']);
                 DB::commit();
                 $message = [
                     'status' => true,

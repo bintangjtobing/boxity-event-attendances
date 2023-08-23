@@ -50,6 +50,7 @@ class ParticipantRepository
             'name' => request('name'),
             'jabatan' => request('jabatan'),
             'no_hp' => request('no_hp'),
+            'email' => request('email'),
             'instansi' => request('instansi'),
             'alamat_instansi' => request('alamat_instansi'),
             'tanggal_kedatangan' => Carbon::parse(request('date-range-from')),
@@ -57,7 +58,19 @@ class ParticipantRepository
             'tanggal_kembali' => Carbon::parse(request('date-range-to')),
             'qr_code' => $qr_code,
         ];
-        Participants::create($data);
+        $participant = Participants::create($data);
+        if ($participant == true) {
+            $message = [
+                'status' => true,
+                'token' => $data['qr_code']
+            ];
+        } else {
+            $message = [
+                'status' => false,
+            ];
+        }
+        return $message;
+
     }
 
     function update($id) {
@@ -66,6 +79,7 @@ class ParticipantRepository
             'name' => request('name'),
             'jabatan' => request('jabatan'),
             'no_hp' => request('no_hp'),
+            'email' => request('email'),
             'instansi' => request('instansi'),
             'alamat_instansi' => request('alamat_instansi'),
             'tanggal_kedatangan' => Carbon::parse(request('date-range-from')),
@@ -118,5 +132,4 @@ class ParticipantRepository
             $lastNumber = $newNumber;
         }
     }
-
 }

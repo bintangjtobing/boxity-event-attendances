@@ -117,6 +117,12 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="formGroupExampleInput"
+                                        class="color-dark fs-14 fw-500 align-center">Email</label>
+                                    <input type="email" class="form-control ih-medium ip-gray radius-xs b-light px-15"
+                                        id="formGroupExampleInput" name="email">
+                                </div>
+                                <div class="form-group">
+                                    <label for="formGroupExampleInput"
                                         class="color-dark fs-14 fw-500 align-center">Jabatan</label>
                                     <input type="text" class="form-control ih-medium ip-gray radius-xs b-light px-15"
                                         id="formGroupExampleInput" name="jabatan">
@@ -163,7 +169,8 @@
                                 <div class="form-group">
                                     <label for="formGroupExampleInput"
                                         class="color-dark fs-14 fw-500 align-center">Penginapan</label>
-                                    <input type="text" class="form-control ih-medium ip-gray radius-xs b-light px-15"
+                                    <input type="text"
+                                        class="form-control ih-medium ip-gray radius-xs b-light px-15"
                                         id="formGroupExampleInput" name="penginapan">
                                 </div>
                         </div>

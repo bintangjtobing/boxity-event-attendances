@@ -22,7 +22,7 @@
                                 </span>
                             </li>
                             <li class="atbd-breadcrumb__item">
-                                <span>Edit</span>
+                                <span>Add</span>
                             </li>
                         </ul>
                     </h4>
@@ -96,7 +96,7 @@
                     <div class="card-body">
                         <p class="color-dark fw-500 fs-20 mb-3">Detail {{ ucfirst(Helper::getCurrentUrlAdmin()) }}</p>
                         <div class="Vertical-form">
-                            <form id="formEdit">
+                            <form id="formAdd">
                                 @csrf
                                 <div class="form-group">
                                     <label for="formGroupExampleInput"
@@ -104,9 +104,7 @@
                                     <div class="atbd-select ">
                                         <select name="event_id" id="select-search" class="form-control">
                                             @foreach ($events as $item)
-                                                <option value="{{ $item->id }}"
-                                                    @if ($item->id == $participant->event_id) selected @endif>
-                                                    {{ $item->name }}</option>
+                                                <option value="{{ $item->id }}">{{ $item->name }}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -115,31 +113,37 @@
                                     <label for="formGroupExampleInput"
                                         class="color-dark fs-14 fw-500 align-center">Name</label>
                                     <input type="text" class="form-control ih-medium ip-gray radius-xs b-light px-15"
-                                        id="formGroupExampleInput" name="name" value="{{ $participant->name }}">
+                                        id="formGroupExampleInput" name="name">
+                                </div>
+                                <div class="form-group">
+                                    <label for="formGroupExampleInput"
+                                        class="color-dark fs-14 fw-500 align-center">Email</label>
+                                    <input type="email" class="form-control ih-medium ip-gray radius-xs b-light px-15"
+                                        id="formGroupExampleInput" name="email">
                                 </div>
                                 <div class="form-group">
                                     <label for="formGroupExampleInput"
                                         class="color-dark fs-14 fw-500 align-center">Jabatan</label>
                                     <input type="text" class="form-control ih-medium ip-gray radius-xs b-light px-15"
-                                        id="formGroupExampleInput" name="jabatan" value="{{ $participant->jabatan }}">
+                                        id="formGroupExampleInput" name="jabatan">
                                 </div>
                                 <div class="form-group">
                                     <label for="formGroupExampleInput" class="color-dark fs-14 fw-500 align-center">No
                                         Hp</label>
                                     <input type="number" maxlength="15"
                                         class="form-control ih-medium ip-gray radius-xs b-light px-15"
-                                        id="formGroupExampleInput" name="no_hp" value="{{ $participant->no_hp }}">
+                                        id="formGroupExampleInput" name="no_hp">
                                 </div>
                                 <div class="form-group">
                                     <label for="formGroupExampleInput"
                                         class="color-dark fs-14 fw-500 align-center">Instansi</label>
                                     <input type="text" class="form-control ih-medium ip-gray radius-xs b-light px-15"
-                                        id="formGroupExampleInput" name="instansi" value="{{ $participant->instansi }}">
+                                        id="formGroupExampleInput" name="instansi">
                                 </div>
                                 <div class="form-group form-element-textarea">
                                     <label for="exampleFormControlTextarea1"
                                         class="il-gray fs-14 fw-500 align-center">Alamat Instansi</label>
-                                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="alamat_instansi">value="{{ $participant->alamat_instansi }}"</textarea>
+                                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="alamat_instansi"></textarea>
                                 </div>
                                 <div class="row">
                                     <div class="col-md">
@@ -149,15 +153,13 @@
                                             <div class="form-group mb-0">
                                                 <input type="text" name="date-range-from"
                                                     class="form-control form-control-default" id="tanggal_kedatangan"
-                                                    placeholder="Tanggal Kedatangan"
-                                                    value="{{ $participant->tanggal_kedatangan }}">
+                                                    placeholder="Tanggal Kedatangan">
                                             </div>
                                             <span class="divider">-</span>
                                             <div class="form-group mb-0">
                                                 <input type="text" name="date-range-to"
                                                     class="form-control form-control-default" id="tanggal_kembali"
-                                                    placeholder="Tanggal Kembali"
-                                                    value="{{ $participant->tanggal_kembali }}">
+                                                    placeholder="Tanggal Kembali">
                                             </div>
                                             <a class="date-picker-icon" href="#"><span
                                                     data-feather="calendar"></span></a>
@@ -169,8 +171,7 @@
                                         class="color-dark fs-14 fw-500 align-center">Penginapan</label>
                                     <input type="text"
                                         class="form-control ih-medium ip-gray radius-xs b-light px-15"
-                                        id="formGroupExampleInput" name="penginapan"
-                                        value="{{ $participant->penginapan }}">
+                                        id="formGroupExampleInput" name="penginapan">
                                 </div>
                         </div>
                         <div class="layout-button mt-25">
@@ -188,22 +189,22 @@
 </div>
 </div>
 <script>
-    $('#formEdit').submit(function(e) {
+    $('#formAdd').submit(function(e) {
         $(".submit").prop('disabled', true);
         e.preventDefault();
         $('.is-invalid').each(function() {
             $('.is-invalid').removeClass('is-invalid');
         });
         $.ajax({
-            url: "{{ route('participant_edit_patch', $participant->participant_id) }}",
-            type: "PATCH",
-            data: $('#formEdit').serialize(),
+            url: "{{ route('participant_add_post') }}",
+            type: "POST",
+            data: $('#formAdd').serialize(),
             success: function(res) {
                 if (res.status == true) {
                     Swal.fire({
                         icon: 'success',
                         title: 'Success!',
-                        text: 'Edit Successful',
+                        text: 'Add Successful',
                     })
                     setTimeout(function() {
                         window.location.href = "{{ route('participant_view_index') }}";
@@ -228,7 +229,7 @@
                         text: 'Something went wrong',
                         confirmButtonText: 'Close'
                     })
-                showError(res.responseJSON.errors, "#formEdit");
+                showError(res.responseJSON.errors, "#formAdd");
                 $.each(res.responseJSON.errors, function(idx, item) {
                     toastr.error(idx = item);
                 });

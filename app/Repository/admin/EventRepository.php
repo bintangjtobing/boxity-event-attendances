@@ -178,32 +178,4 @@ class EventRepository
             'token' => $qr_code
         ];
     }
-
-    // public function sendBarcode($token)
-    // {
-    //     $image = QrCode::format('png')->size(200)->generate($token);
-    //     $output_file = public_path('images/event/qr-code/img-' . time() . '.png');
-    //     file_put_contents($output_file, $image);
-    //     $participant = Participants::with('Event')->where('barcode', $token)->first();
-    //     $event = Events::find($participant->events_id);
-    //     if ($event->has_checkin_limit == 1) {
-    //         $start_time = Carbon::parse($event->start_time - $event->checkin_start_limit)->format('H:i');
-    //         $end_time = Carbon::parse($event->start_time + $event->checkin_end_limit)->format('H:i');
-    //     } else {
-    //         $start_time = null;
-    //         $end_time = null;
-    //     }
-    //     $data = [
-    //         'name' => $participant->name,
-    //         'email' => request('email'),
-    //         'qrcode_link' => $output_file,
-    //         'title' => $event->title,
-    //         'date' => Carbon::parse($event->date)->isoFormat('D MMMM Y'),
-    //         'start_time' => $event->start_time,
-    //         'has_checkin_limit' => $event->has_checkin_limit,
-    //         'start_time' =>$start_time,
-    //         'end_time' => $end_time
-    //     ];
-    //     SendQrCodeJob::dispatch($data);
-    // }
 }

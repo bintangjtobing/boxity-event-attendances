@@ -15,7 +15,7 @@
                         </li>
                     @else
                         @php
-                            $check = Helper::getCurrentUrlAdmin() == 'admins' || Helper::getCurrentUrlAdmin() == 'roles' || Helper::getCurrentUrlAdmin() == 'authorizations';
+                            $check = Helper::getCurrentUrlAdmin() == 'admin' || Helper::getCurrentUrlAdmin() == 'role' || Helper::getCurrentUrlAdmin() == 'authorization';
                         @endphp
                         <li class="has-child @if ($check == true) open @endif">
                             <a href="#" class="@if ($check == true) active @endif">
@@ -26,7 +26,7 @@
                             <ul>
                                 @foreach ($item->Modules as $i)
                                     <li>
-                                        <a class="{{ Helper::getCurrentUrlAdmin() == $item->route ? 'active' : '' }}"
+                                        <a class="{{ Helper::getCurrentUrlAdmin() == $i->route ? 'active' : '' }}"
                                             href="{{ '/' . $i->route }}">
                                             {{ $i->name }}</a>
                                     </li>

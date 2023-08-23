@@ -13,6 +13,7 @@ class Participants extends Model
         'participant_id',
         'event_id',
         'name',
+        'email',
         'jabatan',
         'no_hp',
         'instansi',
@@ -21,6 +22,7 @@ class Participants extends Model
         'penginapan',
         'tanggal_kembali',
         'qr_code',
+        'qr_code_file_name'
     ];
 
     public function Event() {
