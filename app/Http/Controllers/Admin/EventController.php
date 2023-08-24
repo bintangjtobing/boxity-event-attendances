@@ -2,20 +2,31 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Repository\admin\EventRepository;
+use App\Repository\admin\ParticipantRepository;
 use App\Repository\admin\SendQrRepository;
 
 class EventController extends Controller
 {
-    protected $repo, $qr_code;
+    protected $repo, $qr_code, $participant;
 
     public function __construct()
     {
         $this->repo = new EventRepository;
         $this->qr_code = new SendQrRepository;
+        $this->participant = new ParticipantRepository;
+    }
+
+    public function getQrCode($token) {
+        $data['link'] = $this->participant->getSingleParticipantByToken($token);
+        if (!$data['link']) {
+            return view('page.404');
+        }
+        return view('qr-code', $data);
     }
 
     public function view()
@@ -107,7 +118,6 @@ class EventController extends Controller
         }
         if ($data['event']->status == 'inactive') {
             return view('admin.event.register.inactive');
-
         }
         $timezone = 'Asia/Jakarta';
         $currentTime = \Carbon\Carbon::now($timezone);
@@ -121,8 +131,6 @@ class EventController extends Controller
         if ($datetime_event->format('Y-m-d H:i:s') < $currentTime->format('Y-m-d H:i:s')) {
             return view('admin.event.register.has_started');
         }
-
-
         return view('admin.event.register.register', $data);
     }
 
@@ -132,7 +140,12 @@ class EventController extends Controller
         try {
             $check = $this->repo->processRegister($token);
             if ($check['status'] == true) {
-                $this->qr_code->sendQrCode($check['token']);
+                if ($check['email'] != null) {
+                    $this->qr_code->sendQrCode($check['token']);
+                }
+                if ($check['phone_number'] != null) {
+                    $this->qr_code->sendQrCodeToWa($check);
+                }
                 DB::commit();
                 $message = [
                     'status' => true,

@@ -37,6 +37,9 @@ Route::prefix('/')->group(function () {
     Route::get('/register/{token}', [AdminEventController::class, 'register'])->name('events_register');
     Route::post('/register/{token}', [AdminEventController::class, 'processRegistration'])->name('event_processRegistration');
 
+    //get Qr Code
+    Route::get('/qr-code/{token}', [AdminEventController::class, 'getQrCode'])->name('event_getQrCode');
+
     Route::namespace('Admin')->middleware(['admin'])->group(function () {
         Route::prefix('/dashboard')->group(function () {
             Route::get('/', [AdminDashboardController::class, 'view'])->name('dashboard_view_admin');

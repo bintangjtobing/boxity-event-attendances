@@ -53,7 +53,12 @@ class ParticipantController extends Controller
         try {
             $data = $this->repo->add();
             if($data['status'] == true) {
-                $this->qr_code->sendQrCode($data['token']);
+                if ($data['email'] != null) {
+                    $this->qr_code->sendQrCode($data['token']);
+                }
+                if ($data['phone_number'] != null) {
+                    $this->qr_code->sendQrCodeToWa($data);
+                }
                 DB::commit();
                 $message = [
                     'status' => true,

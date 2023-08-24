@@ -161,6 +161,7 @@ class EventRepository
             'participant_id' => $newParticipantId,
             'event_id' => request('event_id'),
             'name' => request('name'),
+            'email' => request('email'),
             'jabatan' => request('jabatan'),
             'no_hp' => request('no_hp'),
             'instansi' => request('instansi'),
@@ -175,7 +176,9 @@ class EventRepository
         return [
             'status' => true,
             'message' => 'Registration success',
-            'token' => $qr_code
+            'token' => $qr_code,
+            'phone_number' => $data['no_hp'],
+            'email' => $data['email']
         ];
     }
 }

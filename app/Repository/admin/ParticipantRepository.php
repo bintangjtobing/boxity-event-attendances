@@ -10,6 +10,17 @@ use App\Participants;
 
 class ParticipantRepository
 {
+    function getSingleParticipantByToken($token) {
+        $data = Participants::where('qr_code', $token)->pluck('qr_code_file_name')->first();
+        //return route not found kalau tidak ada data
+        if (!$data) {
+            return null;
+        }
+        $data = explode('/', $data, 7);
+        $data = $data[6];
+        return $data;
+    }
+
     function getEvent() {
         $data = Events::get();
         return $data;
@@ -62,7 +73,9 @@ class ParticipantRepository
         if ($participant == true) {
             $message = [
                 'status' => true,
-                'token' => $data['qr_code']
+                'token' => $data['qr_code'],
+                'phone_number' => $data['no_hp'],
+                'email' => $data['email']
             ];
         } else {
             $message = [
