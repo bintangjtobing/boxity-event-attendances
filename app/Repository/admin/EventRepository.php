@@ -58,7 +58,7 @@ class EventRepository
             'start_time' => $start_time,
             'end_time' => $end_time,
             'token' => $token,
-            'status' => request('status')
+            'status' => 1
         ];
         Events::create($data);
     }

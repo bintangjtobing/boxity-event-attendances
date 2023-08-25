@@ -15,7 +15,7 @@ class SendQrRepository
 {
     public function sendQrCode($token)
     {
-        $image = QrCode::format('png')->size(200)->generate($token);
+        $image = QrCode::format('png')->merge('https://res.cloudinary.com/boxity-id/image/upload/v1678791753/asset_boxity/logo/icon-web_qusdsv.png', .2, true)->errorCorrection('H')->size(200)->generate($token);
         $output_file = public_path('images/participant/qr-code/img-' . time() . '.png');
         file_put_contents($output_file, $image);
         $participant = Participants::with('Event')->where('qr_code', $token)->first();
@@ -39,7 +39,7 @@ class SendQrRepository
     public function sendQrCodeToWa($data) {
         $token = $data['token'];
         //save qrcode
-        $image = QrCode::format('png')->size(200)->generate($token);
+        $image = QrCode::format('png')->merge('https://res.cloudinary.com/boxity-id/image/upload/v1678791753/asset_boxity/logo/icon-web_qusdsv.png', .2, true)->errorCorrection('H')->size(200)->generate($token);
         $output_file = public_path('images/participant/qr-code/img-' . time() . '.png');
         file_put_contents($output_file, $image);
         //end of save qrcode
@@ -54,7 +54,7 @@ class SendQrRepository
         $event_date = Carbon::parse($event->start_date)->isoFormat('D MMMM Y');
         $event_time = Carbon::parse($event->start_time)->format('H:i A');
         $link = route('event_getQrCode', $token);
-        $isi_pesan_WA_ke_pusat = "*Dear $name !*\nWe are excited to inform you that your registration for the $event_name has been successfully received. Thank you for choosing to be a part of this event!\n\n*Event Details:*\n*Event Name:* $event_name\n*Date:* $event_date\n*Time:* $event_time\n\nTo ensure a smooth check-in process, please present the following QR code to the event staff upon your arrival:\nClick this link for get the qr Code :\n$link\nOur staff will use the QR code for verification of your attendance at the event. Your cooperation is greatly appreciated.\n\nIf you have any questions or require further assistance, please do not hesitate to contact us.\nThank You";
+        $isi_pesan_WA_ke_pusat = "*Dear $name !*\nWe are excited to inform you that your registration for the $event_name has been successfully received. Thank you for choosing to be a part of this event!\n\n*Event Details:*\n*Event Name:* $event_name\n*Date:* $event_date\n*Time:* $event_time\n\nTo ensure a smooth check-in process, please present the following QR code to the event staff upon your arrival:\nClick this link for get the qr Code :\n$link\nOur staff will use the QR code for verification of your attendance at the event. Your cooperation is greatly appreciated.\n\nIf you have any questions or require further assistance, please do not hesitate to contact us.\nWe hope this information is useful for you.\nThank you.\nBest Regards,\n\nPT. Boxity Central Indonesia | #togetherWithBoxityERP";
         $pusat = WablasTrait::sendText($data['phone_number'], $isi_pesan_WA_ke_pusat, 'pusat');
     }
 }

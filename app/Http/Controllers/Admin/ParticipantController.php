@@ -58,11 +58,9 @@ class ParticipantController extends Controller
             if($data['status'] == true) {
                 if ($data['email'] != null) {
                     $this->qr_code->sendQrCode($data['token']);
-                    $this->certificate->sendCertificate($data['email']);
                 }
                 if ($data['phone_number'] != null) {
                     $this->qr_code->sendQrCodeToWa($data);
-                    $this->certificate->sendCertificateToWa($data);
                 }
                 DB::commit();
                 $message = [

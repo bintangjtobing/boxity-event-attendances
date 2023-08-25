@@ -36,7 +36,9 @@
             to continue this collaborative journey in the future.</p>
         <p>We look forward to more opportunities to connect, learn, and grow together. Once again, thank you for being
             an integral part of {{ $details['title'] }} and for making it a truly memorable occasion.</p>
-        <p>Thank you</p>
+        <p>We hope this information is useful for you.<br>Thank you.<br>Best Regards,</p>
+        <br>
+        <p>PT. Boxity Central Indonesia | #togetherWithBoxityERP</p>
     </div>
 </body>
 

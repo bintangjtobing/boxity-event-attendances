@@ -63,7 +63,9 @@
         <p>Our staff will use the QR code for verification of your attendance at the event. Your cooperation is greatly
             appreciated.</p>
         <p>If you have any questions or require further assistance, please do not hesitate to contact us.</p>
-        <P>Thank you</P>
+        <p>We hope this information is useful for you.<br>Thank you.<br>Best Regards,</p>
+        <br>
+        <p>PT. Boxity Central Indonesia | #togetherWithBoxityERP</p>
     </div>
 </body>
 

@@ -71,13 +71,18 @@ class AuthRepository
             'status' => true,
             'message' => 'Attendance success',
             'name' => $data->name,
-            'event' => $data->Event->title,
+            'event' => $data->Event->name,
             'time' => $attendances->attendance_time,
             'date' => Carbon::parse($attendances->attendance_date)->isoFormat('D MMMM Y'),
             'location' => $attendances->Event->location,
             'email' => $data->email,
             'phone_number' => $data->no_hp,
-            'participant_id' => $data->participant_id
+            'participant_id' => $data->participant_id,
+            'event_id' => $event->id,
+            'start_date' => $event->start_date,
+            'start_time' => $event->start_time,
+            'end_time' => $event->end_time,
+            'location' => $event->location
         ];
     }
 }
