@@ -8,17 +8,20 @@ use App\Imports\ParticipantImport;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Maatwebsite\Excel\Facades\Excel;
-use App\Repository\admin\ParticipantRepository;
+use Illuminate\Support\Facades\Storage;
 use App\Repository\admin\SendQrRepository;
+use App\Repository\admin\ParticipantRepository;
+use App\Repository\admin\SendCertificateRepository;
 
 class ParticipantController extends Controller
 {
-    protected $repo, $qr_code;
+    protected $repo, $qr_code, $certificate;
 
     public function __construct()
     {
         $this->repo = new ParticipantRepository;
         $this->qr_code = new SendQrRepository;
+        $this->certificate = new SendCertificateRepository;
     }
 
     public function view()
@@ -55,9 +58,11 @@ class ParticipantController extends Controller
             if($data['status'] == true) {
                 if ($data['email'] != null) {
                     $this->qr_code->sendQrCode($data['token']);
+                    $this->certificate->sendCertificate($data['email']);
                 }
                 if ($data['phone_number'] != null) {
                     $this->qr_code->sendQrCodeToWa($data);
+                    $this->certificate->sendCertificateToWa($data);
                 }
                 DB::commit();
                 $message = [
@@ -154,5 +159,15 @@ class ParticipantController extends Controller
                 'data' => $exception->getMessage()
             ]);
         }
+    }
+
+    public function downloadTemplate()
+    {
+        $file = public_path('template/import-participant.xlsx');
+        $filename = 'import-participant.xlsx';
+
+        return response()->download($file, $filename, [
+            'Content-Type' => 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+        ]);
     }
 }

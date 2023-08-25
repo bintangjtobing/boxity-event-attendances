@@ -19,9 +19,15 @@
                 </h4>
                 <div class="breadcrumb-action justify-content-center flex-wrap">
                     <div class="dropdown action-btn">
+                        <a href="javascript:void(0)" class="btn btn-lg btn-white btn-upload"
+                            onclick="window.location.href = '{{ route('participant_view_template') }}'">
+                            <i class="la la-download"></i> Click to Download Template
+                        </a>
+                    </div>
+                    <div class="dropdown action-btn">
                         <a href="" class="btn btn-sm btn-default btn-white" data-toggle="modal"
                             data-target="#modal-import-participant" type="button">
-                            <i class="la la-download"></i> Import
+                            <i class="la la-file-import"></i> Import
                         </a>
                     </div>
                     <div class="action-btn">

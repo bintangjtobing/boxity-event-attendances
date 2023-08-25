@@ -8,15 +8,17 @@ use Illuminate\Http\Request;
 use App\Repository\AuthRepository;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Repository\admin\SendCertificateRepository;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
-    protected $attendance;
+    protected $attendance, $certificate;
 
     function __construct() {
         $this->attendance = new AuthRepository;
+        $this->certificate = new SendCertificateRepository;
     }
 
     function viewLogin() {
@@ -71,6 +73,12 @@ class AuthController extends Controller
         try {
             $check = $this->attendance->scanAttendances();
             if ($check['status'] == true) {
+                if ($check['email'] != null) {
+                    $this->certificate->sendCertificate($check['participant_id']);
+                }
+                if ($check['phone_number'] != null) {
+                    $this->certificate->sendCertificateToWa($check);
+                }
                 DB::commit();
                 $message = [
                     'status' => true,

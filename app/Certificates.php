@@ -16,7 +16,7 @@ class Certificates extends Model
     ];
 
     public function Participant() {
-        return $this->belongsTo(Participants::class, 'participant_id');
+        return $this->belongsTo(Participants::class, 'participant_id', 'participant_id');
     }
 
     public function Event() {

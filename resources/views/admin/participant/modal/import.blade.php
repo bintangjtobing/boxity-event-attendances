@@ -13,6 +13,16 @@
                     <div class="atbd-tag-wrap">
                         <div class="atbd-upload">
                             <div class="atbd-upload__input">
+                                <label for="formGroupExampleInput" class="color-dark fs-14 fw-500 align-center">Download
+                                    Template</label>
+                            </div>
+                            <div class="atbd-upload__button mb-3">
+                                <a href="javascript:void(0)" class="btn btn-lg btn-outline-lighten btn-upload"
+                                    onclick="window.location.href = '{{ route('participant_view_template') }}'">
+                                    <i class="la la-download"></i> Click to Download Template
+                                </a>
+                            </div>
+                            <div class="atbd-upload__input">
                                 <label for="formGroupExampleInput" class="color-dark fs-14 fw-500 align-center">Upload
                                     File Excel</label>
                             </div>

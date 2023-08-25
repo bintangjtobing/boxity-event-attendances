@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\AttendanceController as AdminAttendanceController
 use App\Http\Controllers\Admin\RoleController as AdminRoleController;
 use App\Http\Controllers\Admin\AdminController as AdminAdminController;
 use App\Http\Controllers\Admin\AuthorizationController as AdminAuthorizationController;
+use App\Http\Controllers\Admin\CertificateController as AdminCertificateController;
 use App\Http\Controllers\PageController as PageControler;
 
 /*
@@ -39,6 +40,10 @@ Route::prefix('/')->group(function () {
 
     //get Qr Code
     Route::get('/qr-code/{token}', [AdminEventController::class, 'getQrCode'])->name('event_getQrCode');
+    //get Certificate
+    Route::get('/certificate/view/{eventName}-{participantName}', [AdminCertificateController::class, 'viewCertificate'])->name('certificate_view');
+    //download Certificate
+    Route::get('/certificate/download/{eventName}-{participantName}', [AdminCertificateController::class, 'downloadCertificate'])->name('certificate_download');
 
     Route::namespace('Admin')->middleware(['admin'])->group(function () {
         Route::prefix('/dashboard')->group(function () {
@@ -60,6 +65,7 @@ Route::prefix('/')->group(function () {
             Route::get('/data', [AdminParticipantController::class, 'data'])->name('participant_view_data');
             Route::get('/add', [AdminParticipantController::class, 'addView'])->name('participant_add_view');
             Route::get('/edit/{id}', [AdminParticipantController::class, 'editView'])->name('participant_edit_view');
+            Route::get('/download-template', [AdminParticipantController::class, 'downloadTemplate'])->name('participant_view_template');
             Route::post('/import', [AdminParticipantController::class, 'import'])->name('participant_add_import');
             Route::post('/add', [AdminParticipantController::class, 'addPost'])->name('participant_add_post');
             Route::patch('/{id}', [AdminParticipantController::class, 'update'])->name('participant_edit_patch');
@@ -77,13 +83,9 @@ Route::prefix('/')->group(function () {
         });
 
         Route::prefix('/certificate')->group(function () {
-            Route::get('/', [PageControler::class, 'adminMaintenance'])->name('certificate_view_index');
-            Route::get('/data', [PageControler::class, 'data'])->name('certificate_view_data');
-            Route::get('/add', [PageControler::class, 'addView'])->name('certificate_add_view');
-            Route::get('/edit/{id}', [PageControler::class, 'editView'])->name('certificate_edit_view');
-            Route::post('/add', [PageControler::class, 'addPost'])->name('certificate_add_post');
-            Route::patch('/{id}', [PageControler::class, 'update'])->name('certificate_edit_patch');
-            Route::delete('/delete/{id}', [PageControler::class, 'delete'])->name('certificate_delete_data');
+            Route::get('/', [AdminCertificateController::class, 'view'])->name('certificate_view_index');
+            Route::get('/data', [AdminCertificateController::class, 'data'])->name('certificate_view_data');
+            Route::post('/send-certificate/{participant_id}', [AdminCertificateController::class, 'sendCertificate'])->name('certificate_view_send');
         });
 
         Route::prefix('/role')->group(function () {

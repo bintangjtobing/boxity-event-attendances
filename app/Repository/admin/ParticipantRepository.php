@@ -75,7 +75,8 @@ class ParticipantRepository
                 'status' => true,
                 'token' => $data['qr_code'],
                 'phone_number' => $data['no_hp'],
-                'email' => $data['email']
+                'email' => $data['email'],
+                'participant_id' => $data['participant_id']
             ];
         } else {
             $message = [

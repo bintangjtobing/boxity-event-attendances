@@ -7,6 +7,7 @@ use Carbon\Carbon;
 use App\Events;
 use App\AdminStyles;
 use App\Attendances;
+use App\Certificates;
 use App\Participants;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Builder;
@@ -57,6 +58,15 @@ class AuthRepository
             'attendance_time' => Carbon::now($timezone)->format('H:i:s'),
             'status' => true,
         ]);
+
+        $status = 0;
+        $data_certificate = [
+            'participant_id' => $data->participant_id,
+            'event_id' => $data->event_id,
+            'status' => $status
+        ];
+
+        Certificates::create($data_certificate);
         return [
             'status' => true,
             'message' => 'Attendance success',
@@ -64,7 +74,10 @@ class AuthRepository
             'event' => $data->Event->title,
             'time' => $attendances->attendance_time,
             'date' => Carbon::parse($attendances->attendance_date)->isoFormat('D MMMM Y'),
-            'location' => $attendances->Event->location
+            'location' => $attendances->Event->location,
+            'email' => $data->email,
+            'phone_number' => $data->no_hp,
+            'participant_id' => $data->participant_id
         ];
     }
 }
