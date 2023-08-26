@@ -15,7 +15,7 @@ class SendQrRepository
 {
     public function sendQrCode($token)
     {
-        $image = QrCode::format('png')->merge(asset('event_images/Logo ABPPTSI.png'), .2, true)->errorCorrection('H')->size(200)->generate($token);
+        $image = QrCode::format('png')->merge('https://uat-attend.boxity.id/brand/logo primary.png', .2, true)->errorCorrection('H')->size(200)->generate($token);
         $output_file = public_path('images/participant/qr-code/img-' . time() . '.png');
         file_put_contents($output_file, $image);
         $participant = Participants::with('Event')->where('qr_code', $token)->first();
@@ -39,7 +39,7 @@ class SendQrRepository
     public function sendQrCodeToWa($data) {
         $token = $data['token'];
         //save qrcode
-        $image = QrCode::format('png')->merge(asset('event_images/Logo ABPPTSI.png'), .2, true)->errorCorrection('H')->size(200)->generate($token);
+        $image = QrCode::format('png')->merge('https://uat-attend.boxity.id/brand/logo primary.png', .2, true)->errorCorrection('H')->size(200)->generate($token);
         $output_file = public_path('images/participant/qr-code/img-' . time() . '.png');
         file_put_contents($output_file, $image);
         //end of save qrcode
