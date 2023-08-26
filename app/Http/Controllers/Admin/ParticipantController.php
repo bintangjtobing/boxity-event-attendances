@@ -141,12 +141,12 @@ class ParticipantController extends Controller
                 'penginapan' => trim($i[9]),
                 'tanggal_kembali' => Carbon::createFromDate(1900, 1, 1)->addDays((int)trim($i[10]) - 2)->format('Y-m-d'),
             ];
-            // if (trim($i[3]) != null) {
-            //     $this->qr_code->sendQrCode($data['token']);
-            // }
-            // if (trim($i[5]) != null) {
-            //     $this->qr_code->sendQrCodeToWa($data);
-            // }
+            if (trim($i[3]) != null) {
+                $this->qr_code->sendQrCode($data['token']);
+            }
+            if (trim($i[5]) != null) {
+                $this->qr_code->sendQrCodeToWa($data);
+            }
         }
         DB::beginTransaction();
         try {
