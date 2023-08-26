@@ -995,7 +995,7 @@
                         <div class="nav-author__options">
                             <ul>
                                 <li>
-                                    <a href="">
+                                    <a href="{{ route('admin_edit_view', $user->id) }}">
                                         <span data-feather="user"></span> Profile</a>
                                 </li>
                                 {{-- <li>
