@@ -142,7 +142,6 @@ class ParticipantRepository
                 'qr_code' => $qr_code,
                 'created_at' => $value['created_at'],
             ]);
-
             $lastNumber = $newNumber;
         }
     }

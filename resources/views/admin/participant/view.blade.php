@@ -175,7 +175,9 @@
                                     'Your data has been deleted.',
                                     'success'
                                 )
-                                searchData();
+                                setTimeout(function() {
+                                    window.location.reload();
+                                }, 2000);
                             } else {
                                 Swal.fire({
                                     icon: 'error',
@@ -235,11 +237,12 @@
                 if (data.status == true) {
                     $('#modal-import-participant').modal('hide');
                     searchData();
-                    Swal.fire(
-                        'Success!',
-                        data.message,
-                        'success'
-                    )
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Success!',
+                        text: data.message,
+                        timer: 2000,
+                    })
                 } else {
                     Swal.fire({
                         timer: 2000,

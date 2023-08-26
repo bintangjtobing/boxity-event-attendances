@@ -125,21 +125,28 @@ class ParticipantController extends Controller
         $data = Excel::toCollection(new ParticipantImport, request('upload-1'));
         $arr = [];
         foreach ($data[0] as $key => $i) {
-            if ($key == 0) {
+            if ($key == 0 || trim($i[2]) == null) {
                 continue;
             }
             $arr[] = [
                 'created_at' => Carbon::createFromDate(1900, 1, 1)->addDays((int)trim($i[1]) - 2)->format('Y-m-d'),
                 'event_id' => request('event_id'),
                 'nama' => trim($i[2]),
-                'jabatan' => trim($i[3]),
-                'no_hp' => trim($i[12]),
-                'instansi' => trim($i[4]),
-                'alamat_instansi' => trim($i[5]),
-                'tanggal_kedatangan' => Carbon::createFromDate(1900, 1, 1)->addDays((int)trim($i[6]) - 2)->format('Y-m-d'),
-                'penginapan' => trim($i[8]),
-                'tanggal_kembali' => Carbon::createFromDate(1900, 1, 1)->addDays((int)trim($i[9]) - 2)->format('Y-m-d'),
+                'email' => trim($i[3]),
+                'jabatan' => trim($i[4]),
+                'no_hp' => trim($i[5]),
+                'instansi' => trim($i[6]),
+                'alamat_instansi' => trim($i[7]),
+                'tanggal_kedatangan' => Carbon::createFromDate(1900, 1, 1)->addDays((int)trim($i[8]) - 2)->format('Y-m-d'),
+                'penginapan' => trim($i[9]),
+                'tanggal_kembali' => Carbon::createFromDate(1900, 1, 1)->addDays((int)trim($i[10]) - 2)->format('Y-m-d'),
             ];
+            // if (trim($i[3]) != null) {
+            //     $this->qr_code->sendQrCode($data['token']);
+            // }
+            // if (trim($i[5]) != null) {
+            //     $this->qr_code->sendQrCodeToWa($data);
+            // }
         }
         DB::beginTransaction();
         try {
