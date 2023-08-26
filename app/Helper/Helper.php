@@ -125,4 +125,9 @@ class Helper
     public static function show_class($path) {
         return call_user_func_array('Request::is', (array)$path) ? 'show' : '';
     }
+
+    public static function strReplace($str, $from, $to) {
+        $str = str_replace($from, $to, $str);
+        return $str;
+    }
 }

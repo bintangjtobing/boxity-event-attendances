@@ -50,13 +50,13 @@
                         </td>
                         <td>
                             <div class="userDatatable-content">
-                                {{-- @if ($value->status == 'active')
-                                    <a href="{{ route('events_register', ['token' => $value->token]) }}"
+                                @if ($value->status == 'active')
+                                    <a href="{{ route('events_register', ['name' => Helper::strReplace($value->name, ' ', '-')]) }}"
                                         target="_blank">Link
                                         Pendaftaran</a>
-                                @else --}}
-                                <s>Link Pendaftaran</s>
-                                {{-- @endif --}}
+                                @else
+                                    <s>Link Pendaftaran</s>
+                                @endif
                             </div>
                         </td>
                         {{-- <td>

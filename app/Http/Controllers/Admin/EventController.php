@@ -109,9 +109,9 @@ class EventController extends Controller
         return response()->json($message);
     }
 
-    public function register($token)
+    public function register($name)
     {
-        $data['event'] = $this->repo->getSingleEvent($token);
+        $data['event'] = $this->repo->getSingleEvent($name);
 
         if (!$data['event']) {
             return view('admin.event.register.not_found');
@@ -134,11 +134,11 @@ class EventController extends Controller
         return view('admin.event.register.register', $data);
     }
 
-    public function processRegistration(Request $request, $token)
+    public function processRegistration(Request $request, $name)
     {
         DB::beginTransaction();
         try {
-            $check = $this->repo->processRegister($token);
+            $check = $this->repo->processRegister($name);
             if ($check['status'] == true) {
                 if ($check['email'] != null) {
                     $this->qr_code->sendQrCode($check['token']);

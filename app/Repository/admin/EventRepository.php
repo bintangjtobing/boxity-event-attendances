@@ -4,8 +4,9 @@ namespace App\Repository\admin;
 
 use Exception;
 use App\Events;
-use App\Participants;
 use Carbon\Carbon;
+use App\Participants;
+use App\Helper\Helper;
 use Illuminate\Support\Str;
 
 class EventRepository
@@ -99,15 +100,17 @@ class EventRepository
         Events::find($id)->delete();
     }
 
-    function getSingleEvent($token) {
-        $data = Events::where('token', $token)->first();
+    function getSingleEvent($name) {
+        $name = Helper::strReplace($name, '-', ' ');
+        $data = Events::where('name', $name)->first();
         return $data;
     }
 
-    function processRegister($token) {
-        $event = Events::where('token', $token)->first();
-        $participants = Participants::whereHas('Event', function($event) use($token) {
-            $event->where('token', $token);
+    function processRegister($name) {
+        $name = Helper::strReplace($name, '-', ' ');
+        $event = Events::where('name', $name)->first();
+        $participants = Participants::whereHas('Event', function($event) use($name) {
+            $event->where('name', $name);
         });
 
         //check email sudah ada atau belum
@@ -119,7 +122,7 @@ class EventRepository
         }
 
         //check phone sudah ada atau belum
-        if (count($participants->where('phone', request('phone'))->get()) > 0) {
+        if (count($participants->where('no_hp', request('phone'))->get()) > 0) {
             return [
                 'status' => false,
                 'message' => 'You Phone number already registered for this event'
@@ -127,7 +130,6 @@ class EventRepository
         }
 
         $participants = $participants->get();
-
         //check event masih aktif atau tidak
         if ($event->status != 'active') {
             return [
@@ -159,16 +161,16 @@ class EventRepository
 
         $data = [
             'participant_id' => $newParticipantId,
-            'event_id' => request('event_id'),
+            'event_id' => $event->id,
             'name' => request('name'),
             'email' => request('email'),
             'jabatan' => request('jabatan'),
             'no_hp' => request('no_hp'),
             'instansi' => request('instansi'),
             'alamat_instansi' => request('alamat_instansi'),
-            'tanggal_kedatangan' => Carbon::parse(request('date-range-from')),
+            'tanggal_kedatangan' => Carbon::now(),
             'penginapan' => request('penginapan'),
-            'tanggal_kembali' => Carbon::parse(request('date-range-to')),
+            'tanggal_kembali' => Carbon::now(),
             'qr_code' => $qr_code,
         ];
         Participants::create($data);
