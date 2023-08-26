@@ -46,7 +46,7 @@
         <div class="container-fluid">
             <div class="row mb-3">
                 <div class="col-lg-12 text-center">
-                    <img src="https://uat-attend.boxity.id/brand/logo primary.png" width="130px"
+                    <img src="https://uat-attend.boxity.id/brand/logo%20primary.png" width="130px"
                         style="padding-top:30px; padding-bottom:30px;" alt="boxity">
                     <div class="user-member justify-content-center">
                         <small>Register your data to this event</small>

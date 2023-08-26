@@ -46,7 +46,7 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-12 text-center">
-                    <img src="https://uat-attend.boxity.id/brand/logo primary.png" width="220px"
+                    <img src="https://uat-attend.boxity.id/brand/logo%20primary.png" width="220px"
                         style="padding-top:30px;" alt="boxity">
                     <div class="breadcrumb-main user-member justify-content-center">
                         <h4 class="text-capitalize fw-500 breadcrumb-title">
