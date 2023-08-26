@@ -48,9 +48,7 @@
                 <div class="card-body p-0">
                     <div class="table4  p-25 bg-white mb-30">
                         <div class="table-responsive">
-                            <table class="table mb-0 table-borderless adv-table" data-sorting="true"
-                                data-filter-container="#filter-form-container" data-paging-current="1"
-                                data-paging-position="right" data-paging-size="10">
+                            <table class="table mb-0">
                                 <thead>
                                     <tr class="userDatatable-header">
                                         <th>
