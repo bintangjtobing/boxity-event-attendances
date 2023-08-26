@@ -179,8 +179,6 @@
         </span>
     </div>
     <div class="overlay-dark-sidebar"></div>
-
-    <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDduF2tLXicDEPDMAtC6-NLOekX0A5vlnY"></script>
     <!-- inject:js-->
     <script src="{{ asset('assets/vendor_assets/js/jquery/jquery-3.5.1.min.js') }}"></script>
     <script src="{{ asset('assets/vendor_assets/js/jquery/jquery-ui.js') }}"></script>
@@ -266,7 +264,7 @@
                             title: res.message
                         });
                         setTimeout(function() {
-                            window.location.href = "{{ url('/login') }}";
+                            window.location.reload();
                         }, 2000);
                     } else {
                         Toast.fire({
