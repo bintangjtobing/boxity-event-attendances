@@ -23,6 +23,7 @@ class EventController extends Controller
 
     public function getQrCode($token) {
         $data['link'] = $this->participant->getSingleParticipantByToken($token);
+        $data['event'] = $this->participant->getSingleEventByToken($token);
         if (!$data['link']) {
             return view('page.404');
         }

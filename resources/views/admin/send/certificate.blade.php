@@ -21,24 +21,20 @@
 
 <body>
     <div class="container">
-        <h2>Certificate</h2>
-        <p>Dear {{ ucfirst($details['name']) }},</p>
-        <p>We sincerely extend our heartfelt gratitude to you for your esteemed presence and active participation at our
-            recent event, {{ $details['title'] }}, held on {{ $details['date'] }}. Your enthusiasm and engagement truly
-            enriched the event's atmosphere.</p>
-        <p>As a token of our appreciation, we are thrilled to present you with a certificate recognizing your
-            significant contribution to {{ $details['title'] }}. Your insights and contributions played a pivotal role
-            in the
-            success of the event, and we are genuinely grateful for your involvement.</p>
-        <p>This certificate serves as a lasting memento of your dedication and commitment to making
-            {{ $details['title'] }} a
-            remarkable experience for all attendees. Your presence and valuable insights are greatly valued, and we hope
-            to continue this collaborative journey in the future.</p>
-        <p>We look forward to more opportunities to connect, learn, and grow together. Once again, thank you for being
-            an integral part of {{ $details['title'] }} and for making it a truly memorable occasion.</p>
-        <p>We hope this information is useful for you.<br>Thank you.<br>Best Regards,</p>
+        <h1>Certificate</h1>
+        <p>{{ ucfirst($details['name']) }} yang terhormat!</p>
+        <p>Terima kasih atas kehadiran dan partisipasi aktif Anda di {{ ucfirst($details['title']) }} kami baru-baru
+            ini, yang
+            diadakan pada tanggal {{ $details['date'] }}. Antusiasme dan keterlibatan Anda benar-benar memperkaya
+            suasana acara.</p>
+        <p>Sebagai bentuk apresiasi kami, dengan senang hati kami mempersembahkan kepada Anda sertifikat yang mengakui
+            kontribusi signifikan Anda pada Acara Pengujian Hari ini.</p>
+        <p>Sekali lagi, terima kasih telah menjadi bagian integral dari {{ ucfirst($details['title']) }}, dan
+            menjadikannya acara yang
+            benar-benar berkesan.</p>
+        <p>Kami harap informasi ini bermanfaat bagi Anda.<br>Terima Kasih<br>Salam,</p>
         <br>
-        <p>PT. Boxity Central Indonesia | #togetherWithBoxityERP</p>
+        <p>{{ ucfirst($details['title']) }}</p>
     </div>
 </body>
 

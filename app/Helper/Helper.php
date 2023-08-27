@@ -130,4 +130,17 @@ class Helper
         $str = str_replace($from, $to, $str);
         return $str;
     }
+
+    public static function getSizes() {
+        $sizes = [
+            'XS' => 'XS',
+            'S' => 'S',
+            'M' => 'M',
+            'L' => 'L',
+            'XL' => 'XL',
+            'XXL' => 'XXL',
+            'XXXL' => 'XXXL'
+        ];
+        return $sizes;
+    }
 }

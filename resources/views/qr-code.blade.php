@@ -29,7 +29,7 @@
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <!-- endinject -->
     <link rel="icon" type="image/png" sizes="16x16"
-        href="https://res.cloudinary.com/boxity-id/image/upload/v1678791753/asset_boxity/logo/icon-web_qusdsv.png">
+        href="https://res.cloudinary.com/boxity-id/image/upload/v1693136775/Logo_ABPPTSI_nfb8ns.png">
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 </head>
 
@@ -46,8 +46,8 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-12 text-center">
-                    <img src="https://uat-attend.boxity.id/brand/logo primary.png" width="220px"
-                        style="padding-top:30px;" alt="boxity">
+                    <img src="https://res.cloudinary.com/boxity-id/image/upload/v1693136775/Logo_ABPPTSI_nfb8ns.png"
+                        width="120px" style="padding-top:30px;" alt="boxity">
                     <div class="breadcrumb-main user-member justify-content-center">
                         <h4 class="text-capitalize fw-500 breadcrumb-title">
                             Please, show your QR Code
@@ -73,9 +73,8 @@
                     <div class="col-md">
                         <div class="footer-copyright text-center">
                             <?php $y = date('Y'); ?>
-                            <p>Copyright &copy; {{ $y }} All Rights Reserved by <a href="#">PT Boxity
-                                    Central
-                                    Indonesia</a>
+                            <p>Copyright &copy; {{ $y }} All Rights Reserved by <a
+                                    href="#">{{ ucfirst($event->name) }}</a>
                             </p>
                         </div>
                     </div>

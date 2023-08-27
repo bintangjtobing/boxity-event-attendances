@@ -29,7 +29,7 @@
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <!-- endinject -->
     <link rel="icon" type="image/png" sizes="16x16"
-        href="https://res.cloudinary.com/boxity-id/image/upload/v1678791753/asset_boxity/logo/icon-web_qusdsv.png">
+        href="https://res.cloudinary.com/boxity-id/image/upload/v1693136775/Logo_ABPPTSI_nfb8ns.png">
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 </head>
 
@@ -46,8 +46,8 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-12 text-center">
-                    <img src="https://uat-attend.boxity.id/brand/logo primary.png" width="220px"
-                        style="padding-top:30px;" alt="boxity">
+                    <img src="https://res.cloudinary.com/boxity-id/image/upload/v1693136775/Logo_ABPPTSI_nfb8ns.png"
+                        width="120px" style="padding-top:30px;" alt="boxity">
                     <div class="breadcrumb-main user-member justify-content-center">
                         <h4 class="text-capitalize fw-500 breadcrumb-title">
                             Please, show your QR Code
@@ -73,9 +73,8 @@
                     <div class="col-md">
                         <div class="footer-copyright text-center">
                             <?php $y = date('Y'); ?>
-                            <p>Copyright &copy; {{ $y }} All Rights Reserved by <a href="#">PT Boxity
-                                    Central
-                                    Indonesia</a>
+                            <p>Copyright &copy; {{ $y }} All Rights Reserved by <a
+                                    href="#">{{ ucfirst($event->name) }}</a>
                             </p>
                         </div>
                     </div>
@@ -175,9 +174,8 @@
                             html: '<svg xmlns="http://www.w3.org/2000/svg" height="250px" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><style>svg{fill:#30e12d}</style><path d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"/></svg><br>Hello ' +
                                 response.name +
                                 ',<br>your attendances has been validated!',
-                            imageUrl: 'https://uat-attend.boxity.id/brand/logo primary.png',
-                            imageWidth: 200,
-                            imageHeight: 60,
+                            imageUrl: 'https://res.cloudinary.com/boxity-id/image/upload/v1693136775/Logo_ABPPTSI_nfb8ns.png',
+                            imageWidth: 80,
                             padding: '0 0 3em 0',
                             imageAlt: 'Custom image',
                             showConfirmButton: false,
@@ -188,9 +186,8 @@
                             html: '<svg xmlns="http://www.w3.org/2000/svg" height="250px" viewBox="0 0 384 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><style>svg{fill:#eb0000}</style><path d="M376.6 84.5c11.3-13.6 9.5-33.8-4.1-45.1s-33.8-9.5-45.1 4.1L192 206 56.6 43.5C45.3 29.9 25.1 28.1 11.5 39.4S-3.9 70.9 7.4 84.5L150.3 256 7.4 427.5c-11.3 13.6-9.5 33.8 4.1 45.1s33.8 9.5 45.1-4.1L192 306 327.4 468.5c11.3 13.6 31.5 15.4 45.1 4.1s15.4-31.5 4.1-45.1L233.7 256 376.6 84.5z"/></svg><br>Hello ' +
                                 response.error +
                                 ',<br>your attendances has been validated!',
-                            imageUrl: 'https://uat-attend.boxity.id/brand/logo primary.png',
-                            imageWidth: 200,
-                            imageHeight: 60,
+                            imageUrl: 'https://res.cloudinary.com/boxity-id/image/upload/v1693136775/Logo_ABPPTSI_nfb8ns.png',
+                            imageWidth: 80,
                             padding: '0 0 3em 0',
                             imageAlt: 'Custom image',
                             showConfirmButton: false,

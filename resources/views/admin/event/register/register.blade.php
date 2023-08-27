@@ -29,7 +29,7 @@
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <!-- endinject -->
     <link rel="icon" type="image/png" sizes="16x16"
-        href="https://res.cloudinary.com/boxity-id/image/upload/v1678791753/asset_boxity/logo/icon-web_qusdsv.png">
+        href="https://res.cloudinary.com/boxity-id/image/upload/v1693136775/Logo_ABPPTSI_nfb8ns.png">
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 </head>
 
@@ -40,14 +40,13 @@
             <input class="form-control mr-sm-2 box-shadow-none" type="text" placeholder="Search...">
         </form>
     </div>
-
     <div class="mobile-author-actions"></div>
     <main class="main-content">
         <div class="container-fluid">
             <div class="row mb-3">
                 <div class="col-lg-12 text-center">
-                    <img src="https://uat-attend.boxity.id/brand/logo primary.png" width="130px"
-                        style="padding-top:30px; padding-bottom:30px;" alt="boxity">
+                    <img src="https://res.cloudinary.com/boxity-id/image/upload/v1693136775/Logo_ABPPTSI_nfb8ns.png"
+                        width="130px" style="padding-top:30px; padding-bottom:30px;" alt="boxity">
                     <div class="user-member justify-content-center">
                         <small>Register your data to this event</small>
                         <h4 class="text-capitalize fw-500 breadcrumb-title" style="font-weight: bold;">
@@ -142,8 +141,26 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        <div class="row">
+                                            <div class="col">
+                                                <div class="form-group">
+                                                    <label for="formGroupExampleInput"
+                                                        class="color-dark fs-14 fw-500 align-center">Ukuran
+                                                        Baju <small class="text-danger">*</small></label>
+                                                    <div class="atbd-select">
+                                                        <select name="size" id="select-search"
+                                                            class="form-control">
+                                                            @foreach (Helper::getSizes() as $key => $value)
+                                                                <option value="{{ $key }}">
+                                                                    {{ $value }}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                         <button type="submit" class="btn btn-warning w-100"
-                                            style="background-color: #f95b12">Submit</button>
+                                            style="background-color: #2a4594">Submit</button>
                                     </div>
                                 </div>
                             </form>
@@ -158,9 +175,8 @@
                     <div class="col-md">
                         <div class="footer-copyright text-center">
                             <?php $y = date('Y'); ?>
-                            <p>Copyright &copy; {{ $y }} All Rights Reserved by <a href="#">PT Boxity
-                                    Central
-                                    Indonesia</a>
+                            <p>Copyright &copy; {{ $y }} All Rights Reserved by <a
+                                    href="#">{{ ucfirst($event->name) }}</a>
                             </p>
                         </div>
                     </div>

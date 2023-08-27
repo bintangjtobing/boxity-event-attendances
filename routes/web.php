@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\RoleController as AdminRoleController;
 use App\Http\Controllers\Admin\AdminController as AdminAdminController;
 use App\Http\Controllers\Admin\AuthorizationController as AdminAuthorizationController;
 use App\Http\Controllers\Admin\CertificateController as AdminCertificateController;
+use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\PageController as PageControler;
 
 /*
@@ -23,12 +24,9 @@ use App\Http\Controllers\PageController as PageControler;
 |
 */
 
-Route::get('/', function () {
-    return view('attendance');
-});
-
 //Admin
 Route::prefix('/')->group(function () {
+    Route::get('/', [AttendanceController::class, 'view'])->name('attendance_view');
     Route::post('/', [AdminAuthController::class, 'processAttendance'])->name('admin_attendance_post');
     Route::get('/login', [AdminAuthController::class, 'viewLogin'])->name('admin_login_view');
     Route::post('/login', [AdminAuthController::class, 'processLogin']);

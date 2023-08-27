@@ -21,6 +21,16 @@ class ParticipantRepository
         return $data;
     }
 
+    function getSingleEventByToken($token) {
+        $data = Participants::where('qr_code', $token)->pluck('event_id')->first();
+        //return route not found kalau tidak ada data
+        if (!$data) {
+            return null;
+        }
+        $event = Events::find($data);
+        return $event;
+    }
+
     function getEvent() {
         $data = Events::get();
         return $data;

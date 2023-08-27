@@ -172,6 +172,7 @@ class EventRepository
             'penginapan' => request('penginapan'),
             'tanggal_kembali' => Carbon::now(),
             'qr_code' => $qr_code,
+            'ukuran_baju' => request('size')
         ];
         Participants::create($data);
 
