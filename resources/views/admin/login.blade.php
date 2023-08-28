@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Event Attedances Dashboard | Boxity</title>
     <link rel="icon" type="image/png" sizes="16x16"
-        href="https://res.cloudinary.com/boxity-id/image/upload/v1678791753/asset_boxity/logo/icon-web_qusdsv.png">
+        href="https://res.cloudinary.com/boxity-id/image/upload/v1693136775/Logo_ABPPTSI_nfb8ns.png">
 
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
@@ -51,7 +51,8 @@
                             <div class="signUP-admin-left__content">
                                 <div
                                     class="text-capitalize mb-md-30 mb-15 d-flex align-items-center justify-content-md-start justify-content-center">
-                                    <img src="{{ asset('brand/logo primary.png') }}" alt="boxity" width="150px">
+                                    <img src="https://res.cloudinary.com/boxity-id/image/upload/v1693136775/Logo_ABPPTSI_nfb8ns.png"
+                                        alt="boxity" width="110px">
                                 </div>
                                 <h1>Admin Attendance Web Application</h1>
                             </div><!-- End: .signUP-admin-left__content  -->
@@ -106,7 +107,8 @@
                                                         <div
                                                             class="button-group d-flex pt-1 justify-content-md-start justify-content-center">
                                                             <button type="submit"
-                                                                class="btn btn-primary btn-default btn-squared mr-15 text-capitalize lh-normal px-50 py-15 signIn-createBtn ">
+                                                                class="btn btn-primary btn-default btn-squared mr-15 text-capitalize lh-normal px-50 py-15 signIn-createBtn"
+                                                                style="background-color: #2a4594">
                                                                 sign in
                                                             </button>
                                                         </div>
