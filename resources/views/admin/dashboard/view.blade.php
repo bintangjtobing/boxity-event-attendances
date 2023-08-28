@@ -88,7 +88,7 @@
                             </div> --}}
                         </div>
                     </div>
-                    <div class="col-xxl-4 col-lg-12 mb-25">
+                    <div class="col-xxl-4 col-lg-6 mb-25">
                         <div
                             class="ap-po-details ap-po-details--2 p-30 radius-xl bg-white d-flex justify-content-between mb-25">
                             <div>
