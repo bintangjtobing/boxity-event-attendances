@@ -49,10 +49,8 @@
                     <img src="https://res.cloudinary.com/boxity-id/image/upload/v1693136775/Logo_ABPPTSI_nfb8ns.png"
                         width="120px" style="padding-top:30px;" alt="boxity">
                     <div class="breadcrumb-main user-member justify-content-center">
-                        <h4 class="text-capitalize fw-500 breadcrumb-title">
-                            Please, show your QR Code
-                            <br>to validate
-                            your attendances
+                        <h4 class="fw-500 breadcrumb-title">
+                            Mohon tunjukkan kode QR anda <br> untuk memvalidasi kehadiran anda.
                         </h4>
                     </div>
                 </div>

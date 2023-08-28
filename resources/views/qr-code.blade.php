@@ -50,9 +50,7 @@
                         width="120px" style="padding-top:30px;" alt="boxity">
                     <div class="breadcrumb-main user-member justify-content-center">
                         <h4 class="text-capitalize fw-500 breadcrumb-title">
-                            Please, show your QR Code
-                            <br>to the event staff for validate
-                            your attendances
+                            Silakan tunjukkan Kode QR Anda kepada staf acara<br>untuk memvalidasi kehadiran Anda
                         </h4>
                     </div>
                 </div>
