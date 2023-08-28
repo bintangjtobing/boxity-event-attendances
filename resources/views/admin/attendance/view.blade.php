@@ -85,7 +85,7 @@
             <div class="card">
                 <div class="card-header color-dark fw-500">
                     {{ Helper::getCurrentUrlAdmin() }} Data
-                    <div id="formFilter">
+                    <form id="formFilter">
                         <div id="filter-form-container">
                             <div class="form-group footable-filtering-search"><label class="sr-only">Search</label>
                                 <div class="input-group"><input type="text" class="form-control" placeholder="Search"
@@ -98,7 +98,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </form>
                 </div>
                 <div class="card-body p-0">
                     <div class="table4  p-25 bg-white mb-30">
