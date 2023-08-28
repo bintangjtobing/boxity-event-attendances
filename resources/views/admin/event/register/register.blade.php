@@ -142,6 +142,24 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        <div class="row">
+                                            <div class="col">
+                                                <div class="form-group">
+                                                    <label for="formGroupExampleInput"
+                                                        class="color-dark fs-14 fw-500 align-center">Ukuran
+                                                        Baju <small class="text-danger">*</small></label>
+                                                    <div class="atbd-select">
+                                                        <select name="size" id="select-search"
+                                                            class="form-control">
+                                                            @foreach (Helper::getSizes() as $key => $value)
+                                                                <option value="{{ $key }}">
+                                                                    {{ $value }}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                         <button type="submit" class="btn btn-warning w-100"
                                             style="background-color: #f95b12">Submit</button>
                                     </div>

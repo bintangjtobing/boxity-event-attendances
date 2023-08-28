@@ -42,30 +42,28 @@
 <body>
     <div class="container">
         <div class="center">
-            <h3>QrCode Attendance</h3>
+            <h1>QrCode Attendance</h1>
         </div>
-        <h2><b>Dear, {{ ucfirst($details['name']) }} !</b></h2>
+        <h2><b>Halo, {{ ucfirst($details['name']) }} !</b></h2>
         <p>
-            We are excited to inform you that your registration for the {{ ucfirst($details['title']) }} has been
-            successfully received. Thank you for choosing to be a part of this event!
+            Dengan senang hati kami informasikan bahwa pendaftaran Anda untuk {{ ucfirst($details['title']) }} telah
+            berhasil diterima.
         </p>
         <h3>Event Details:</h3>
         <ul>
-            <li><strong>Event Name:</strong> {{ $details['title'] }}</li>
-            <li><strong>Date:</strong> {{ $details['date'] }}</li>
-            <li><strong>Time:</strong> {{ $details['start_time'] }}</li>
+            <li><strong>Nama Acara :</strong> {{ $details['title'] }}</li>
+            <li><strong>Tanggal :</strong> {{ $details['date'] }}</li>
+            <li><strong>Waktu :</strong> {{ $details['start_time'] }}</li>
         </ul>
-        <p>To ensure a smooth check-in process, please present the following QR code to the event staff upon your
-            arrival:</p>
+        <p>Untuk memastikan kelancaran proses check-in, harap tunjukkan kode QR berikut kepada staf acara pada saat
+            kedatangan Anda :</p>
         <center>
-            <img src="{{ $message->embed($details['qrcode_link']) }}" alt="Barcode">
+            <img src="{{ $message->embed($details['qrcode_link']) }}" alt="QrCode">
         </center>
-        <p>Our staff will use the QR code for verification of your attendance at the event. Your cooperation is greatly
-            appreciated.</p>
-        <p>If you have any questions or require further assistance, please do not hesitate to contact us.</p>
-        <p>We hope this information is useful for you.<br>Thank you.<br>Best Regards,</p>
-        <br>
-        <p>PT. Boxity Central Indonesia | #togetherWithBoxityERP</p>
+        <p>Kami harap informasi ini bermanfaat bagi Anda.</p>
+        <p>Terima Kasih<br>Salam,<br><br>{{ ucfirst($details['title']) }}</p>
+        {{-- <br>
+        <p>PT. Boxity Central Indonesia | #togetherWithBoxityERP</p> --}}
     </div>
 </body>
 

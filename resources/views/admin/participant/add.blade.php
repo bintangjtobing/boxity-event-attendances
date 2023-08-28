@@ -173,6 +173,19 @@
                                         class="form-control ih-medium ip-gray radius-xs b-light px-15"
                                         id="formGroupExampleInput" name="penginapan">
                                 </div>
+                                <div class="form-group">
+                                    <label for="formGroupExampleInput"
+                                        class="color-dark fs-14 fw-500 align-center">Ukuran
+                                        Baju <small class="text-danger">*</small></label>
+                                    <div class="atbd-select">
+                                        <select name="size" id="select-search" class="form-control">
+                                            @foreach (Helper::getSizes() as $key => $value)
+                                                <option value="{{ $key }}">
+                                                    {{ $value }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
                         </div>
                         <div class="layout-button mt-25">
                             <button type="button" class="btn btn-default btn-squared border-normal bg-normal px-20"
