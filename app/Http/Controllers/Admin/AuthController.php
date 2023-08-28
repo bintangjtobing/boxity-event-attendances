@@ -89,7 +89,9 @@ class AuthController extends Controller
                     'event' => $check['event'],
                     'time' => $check['time'],
                     'date' => $check['date'],
-                    'location' => $check['location']
+                    'location' => $check['location'],
+                    'count_attendance' => $check['count_attendance'],
+                    'ukuran_baju' => $check['ukuran_baju']
                 ];
             } else {
                 $message = [

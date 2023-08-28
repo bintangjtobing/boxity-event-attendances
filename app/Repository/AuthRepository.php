@@ -51,6 +51,9 @@ class AuthRepository
             ];
         }
 
+        //check total kehadiran peserta
+        $total_attendance = Attendances::where('participant_id', $data->participant_id)->where('event_id', $data->event_id)->count() + 1;
+
         $attendances = Attendances::create([
             'participant_id' => $data->participant_id,
             'event_id' => $data->event_id,
@@ -63,10 +66,11 @@ class AuthRepository
         $data_certificate = [
             'participant_id' => $data->participant_id,
             'event_id' => $data->event_id,
-            'status' => $status
+            'status' => $status,
         ];
-
-        Certificates::create($data_certificate);
+        if ($total_attendance == 1) {
+            Certificates::create($data_certificate);
+        }
         return [
             'status' => true,
             'message' => 'Attendance success',
@@ -82,7 +86,9 @@ class AuthRepository
             'start_date' => $event->start_date,
             'start_time' => $event->start_time,
             'end_time' => $event->end_time,
-            'location' => $event->location
+            'location' => $event->location,
+            'count_attendance' => $total_attendance,
+            'ukuran_baju' => $data->ukuran_baju ?? 'All Size'
         ];
     }
 }
