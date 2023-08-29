@@ -143,4 +143,17 @@ class Helper
         ];
         return $sizes;
     }
+
+    public static function generateHash($input) {
+        return md5($input);
+    }
+
+    public function getOriginalParticipantID($hashedParticipantID) {
+        return md5_reverse($hashedParticipantID);
+    }
+
+    public static function verifyHash($input, $hashedValue) {
+        $inputHash = md5($input);
+        return $inputHash === $hashedValue;
+    }
 }

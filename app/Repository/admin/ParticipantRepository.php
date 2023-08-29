@@ -86,7 +86,7 @@ class ParticipantRepository
             $message = [
                 'status' => true,
                 'token' => $data['qr_code'],
-                'phone_number' => $data['no_hp'],
+                'no_hp' => $data['no_hp'],
                 'email' => $data['email'],
                 'participant_id' => $data['participant_id']
             ];
@@ -138,7 +138,7 @@ class ParticipantRepository
         } else {
             $lastNumber = 0;
         }
-
+        $resultArray = [];
         foreach ($arr as $key => $value) {
             do {
                 $qr_code = Str::random(10);
@@ -151,13 +151,13 @@ class ParticipantRepository
             if ($key == 0) {
                 continue;
             }
-
-            Participants::create([
+            $newParticipantData = [
                 'participant_id' => $newParticipantId,
                 'event_id' => 1,
                 'name' => $value['nama'],
                 'jabatan' => $value['jabatan'],
                 'no_hp' => $value['no_hp'] ?? '-',
+                'email' => $value['email'],
                 'instansi' => $value['instansi'],
                 'alamat_instansi' => $value['alamat_instansi'],
                 'tanggal_kedatangan' => Carbon::parse($value['tanggal_kedatangan']),
@@ -165,9 +165,13 @@ class ParticipantRepository
                 'tanggal_kembali' => Carbon::parse($value['tanggal_kembali']),
                 'qr_code' => $qr_code,
                 'created_at' => $value['created_at'],
-                'ukuran_baju' => $value['ukuran_baju']
-            ]);
+                'ukuran_baju' => $value['ukuran_baju'],
+            ];
+            Participants::create($newParticipantData);
             $lastNumber = $newNumber;
+            $newParticipantData['token'] = $qr_code;
+            $resultArray[] = $newParticipantData;
         }
+        return $resultArray;
     }
 }

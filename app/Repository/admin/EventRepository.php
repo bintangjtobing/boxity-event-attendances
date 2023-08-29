@@ -180,7 +180,7 @@ class EventRepository
             'status' => true,
             'message' => 'Registration success',
             'token' => $qr_code,
-            'phone_number' => $data['no_hp'],
+            'no_hp' => $data['no_hp'],
             'email' => $data['email']
         ];
     }

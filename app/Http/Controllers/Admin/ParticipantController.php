@@ -60,7 +60,7 @@ class ParticipantController extends Controller
                 if ($data['email'] != null) {
                     $this->qr_code->sendQrCode($data['token']);
                 }
-                if ($data['phone_number'] != null) {
+                if ($data['no_hp'] != null) {
                     $this->qr_code->sendQrCodeToWa($data);
                 }
                 DB::commit();
@@ -143,16 +143,18 @@ class ParticipantController extends Controller
                 'tanggal_kembali' => Carbon::createFromDate(1900, 1, 1)->addDays((int)trim($i[10]) - 2)->format('Y-m-d'),
                 'ukuran_baju' => trim($i[11])
             ];
-            if (trim($i[3]) != null) {
-                $this->qr_code->sendQrCode($data['token']);
-            }
-            if (trim($i[5]) != null) {
-                $this->qr_code->sendQrCodeToWa($data);
-            }
         }
         DB::beginTransaction();
         try {
             $data = $this->repo->import($arr);
+            foreach ($data as $key => $value) {
+                if ($value['email'] != null) {
+                    $this->qr_code->sendQrCode($value['token']);
+                }
+                if ($value['no_hp'] != null) {
+                    $this->qr_code->sendQrCodeToWa($value);
+                }
+            }
             DB::commit();
             return response([
                 'status' => true,

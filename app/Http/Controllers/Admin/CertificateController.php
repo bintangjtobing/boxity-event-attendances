@@ -36,6 +36,12 @@ class CertificateController extends Controller
         return view('admin.main', compact('content'));
     }
 
+    public function verificationCertificate($token)
+    {
+        $check = $this->repo->checkCertificate($token);
+        return response()->json($check);
+    }
+
     function data(Request $request)
     {
         $data['certificates'] = $this->repo->getData(10);
@@ -58,7 +64,7 @@ class CertificateController extends Controller
         if ($participant->no_hp != null) {
             $data = [
                 'participant_id' => $participant->participant_id,
-                'phone_number' => $participant->no_hp
+                'no_hp' => $participant->no_hp
             ];
             $this->certificate->sendCertificateToWa($data);
         }

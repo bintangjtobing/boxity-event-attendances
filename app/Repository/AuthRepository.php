@@ -80,7 +80,7 @@ class AuthRepository
             'date' => Carbon::parse($attendances->attendance_date)->isoFormat('D MMMM Y'),
             'location' => $attendances->Event->location,
             'email' => $data->email,
-            'phone_number' => $data->no_hp,
+            'no_hp' => $data->no_hp,
             'participant_id' => $data->participant_id,
             'event_id' => $event->id,
             'start_date' => $event->start_date,

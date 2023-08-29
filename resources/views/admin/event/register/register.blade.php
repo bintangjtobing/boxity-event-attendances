@@ -104,7 +104,7 @@
                                                         class="color-dark fs-14 fw-500 align-center">Instansi </label>
                                                     <input type="text"
                                                         class="form-control ih-medium ip-gray radius-xs b-light px-15"
-                                                        id="formGroupExampleInput" name="instansi" required>
+                                                        id="formGroupExampleInput" name="instansi">
                                                 </div>
                                             </div>
                                             <div class="col">
@@ -113,7 +113,7 @@
                                                         class="color-dark fs-14 fw-500 align-center">Jabatan </label>
                                                     <input type="text"
                                                         class="form-control ih-medium ip-gray radius-xs b-light px-15"
-                                                        id="formGroupExampleInput" name="jabatan" required>
+                                                        id="formGroupExampleInput" name="jabatan">
                                                 </div>
                                             </div>
                                         </div>
@@ -123,7 +123,7 @@
                                                     <label for="exampleFormControlTextarea1"
                                                         class="il-gray fs-14 fw-500 align-center">Alamat
                                                         Instansi</label>
-                                                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="alamat_instansi" required></textarea>
+                                                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="alamat_instansi"></textarea>
                                                 </div>
                                             </div>
                                         </div>
@@ -135,7 +135,7 @@
                                                     </label>
                                                     <input type="text"
                                                         class="form-control ih-medium ip-gray radius-xs b-light px-15"
-                                                        id="formGroupExampleInput" name="penginapan" required>
+                                                        id="formGroupExampleInput" name="penginapan">
                                                 </div>
                                             </div>
                                         </div>

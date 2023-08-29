@@ -42,6 +42,8 @@ Route::prefix('/')->group(function () {
     Route::get('/certificate/view/{eventName}-{participantName}', [AdminCertificateController::class, 'viewCertificate'])->name('certificate_view');
     //download Certificate
     Route::get('/certificate/download/{eventName}-{participantName}', [AdminCertificateController::class, 'downloadCertificate'])->name('certificate_download');
+    //verification sertificate
+    Route::get('/e/signature/{token}', [AdminCertificateController::class, 'verificationCertificate'])->name('certificate_verification');
 
     Route::namespace('Admin')->middleware(['admin'])->group(function () {
         Route::prefix('/dashboard')->group(function () {

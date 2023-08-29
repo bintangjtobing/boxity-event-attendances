@@ -144,7 +144,7 @@ class EventController extends Controller
                 if ($check['email'] != null) {
                     $this->qr_code->sendQrCode($check['token']);
                 }
-                if ($check['phone_number'] != null) {
+                if ($check['no_hp'] != null) {
                     $this->qr_code->sendQrCodeToWa($check);
                 }
                 DB::commit();

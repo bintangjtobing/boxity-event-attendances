@@ -85,6 +85,20 @@
             <div class="card">
                 <div class="card-header color-dark fw-500">
                     {{ Helper::getCurrentUrlAdmin() }} Data
+                    <form id="formFilter">
+                        <div id="filter-form-container">
+                            <div class="form-group footable-filtering-search"><label class="sr-only">Search</label>
+                                <div class="input-group"><input type="text" class="form-control" placeholder="Search"
+                                        name="search" onkeyup="searchData()">
+                                    <div class="input-group-btn"><button type="button" class="btn btn-primary"><span
+                                                class="fooicon fooicon-search"></span></button><button type="button"
+                                            class="btn btn-default dropdown-toggle"><span
+                                                class="caret"></span></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
                 </div>
                 <div class="card-body p-0">
                     <div class="table4  p-25 bg-white mb-30">
