@@ -29,21 +29,21 @@
                 {{ $value->instansi }}
             </div>
         </td>
-        {{-- <td>
+        <td>
             <ul class="orderDatatable_actions mb-0 d-flex flex-wrap">
-                <li>
+                {{-- <li>
                     <a href="#" class="view">
                         <img src="{{ asset('icons/eye.svg') }}" width="16" alt=""></a>
-                </li>
+                </li> --}}
                 <li>
                     <a href="{{ route('participant_edit_view', $value->participant_id) }}" class="edit">
                         <img src="{{ asset('icons/edit.svg') }}" width="16" alt=""></a>
                 </li>
                 <li>
-                    <a href="javascript:void(0)" class="remove" onclick="deleteData({{ $value->participant_id }})">
+                    <a href="javascript:void(0)" class="remove" onclick="deleteData('{{ $value->participant_id }}')">
                         <img src="{{ asset('icons/trash-2.svg') }}" width="16" alt=""></a>
                 </li>
             </ul>
-        </td> --}}
+        </td>
     </tr>
 @endforeach

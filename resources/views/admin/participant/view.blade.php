@@ -76,9 +76,9 @@
                                         <th>
                                             <span class="userDatatable-title">Instansi</span>
                                         </th>
-                                        {{-- <th>
+                                        <th>
                                             <span class="userDatatable-title float-right">Action</span>
-                                        </th> --}}
+                                        </th>
                                     </tr>
                                 </thead>
                                 <tbody id="data">
@@ -199,6 +199,7 @@
                             }
                         },
                         error: function(error) {
+                            console.log(error);
                             $('#overlay').css("display", "none");
                             Swal.fire({
                                 icon: 'error',

@@ -40,6 +40,7 @@ class ParticipantController extends Controller
 
     public function editView($id)
     {
+        $data['events'] = $this->repo->getEvent();
         $data['participant'] = $this->repo->getSingleData($id);
         $content = view('admin.participant.edit', $data);
         return view('admin.main', ['content' => $content]);
@@ -140,6 +141,7 @@ class ParticipantController extends Controller
                 'tanggal_kedatangan' => Carbon::createFromDate(1900, 1, 1)->addDays((int)trim($i[8]) - 2)->format('Y-m-d'),
                 'penginapan' => trim($i[9]),
                 'tanggal_kembali' => Carbon::createFromDate(1900, 1, 1)->addDays((int)trim($i[10]) - 2)->format('Y-m-d'),
+                'ukuran_baju' => trim($i[11])
             ];
             if (trim($i[3]) != null) {
                 $this->qr_code->sendQrCode($data['token']);

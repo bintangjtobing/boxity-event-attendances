@@ -22,13 +22,12 @@
                                 </span>
                             </li>
                             <li class="atbd-breadcrumb__item">
-                                <span>Add</span>
+                                <span>Edit</span>
                             </li>
                         </ul>
                     </h4>
                     <div class="breadcrumb-action justify-content-center flex-wrap">
                         {{-- <div class="action-btn">
-
                             <div class="form-group mb-0">
                                 <div class="input-container icon-left position-relative">
                                     <span class="input-icon icon-left">
@@ -96,54 +95,59 @@
                     <div class="card-body">
                         <p class="color-dark fw-500 fs-20 mb-3">Detail {{ ucfirst(Helper::getCurrentUrlAdmin()) }}</p>
                         <div class="Vertical-form">
-                            <form id="formAdd">
+                            <form id="formEdit">
                                 @csrf
                                 <div class="form-group">
                                     <label for="formGroupExampleInput"
                                         class="color-dark fs-14 fw-500 align-center">Event</label>
                                     <div class="atbd-select ">
-                                        <select name="event_id" id="select-search" class="form-control">
+                                        <select name="event_id" id="select-search" class="form-control" disabled>
                                             @foreach ($events as $item)
-                                                <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                                <option value="{{ $item->id }}"
+                                                    @if ($participant->event_id == $item->id) selected @endif>
+                                                    {{ $item->name }}</option>
                                             @endforeach
                                         </select>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="formGroupExampleInput"
-                                        class="color-dark fs-14 fw-500 align-center">Name</label>
+                                    <label for="formGroupExampleInput" class="color-dark fs-14 fw-500 align-center">Name
+                                        <small class="text-danger">*</small></label>
                                     <input type="text" class="form-control ih-medium ip-gray radius-xs b-light px-15"
-                                        id="formGroupExampleInput" name="name">
+                                        id="formGroupExampleInput" name="name" value="{{ $participant->name }}">
                                 </div>
                                 <div class="form-group">
                                     <label for="formGroupExampleInput"
-                                        class="color-dark fs-14 fw-500 align-center">Email</label>
+                                        class="color-dark fs-14 fw-500 align-center">Email <small
+                                            class="text-danger">*</small></label>
                                     <input type="email" class="form-control ih-medium ip-gray radius-xs b-light px-15"
-                                        id="formGroupExampleInput" name="email">
+                                        id="formGroupExampleInput" name="email" value="{{ $participant->email }}">
                                 </div>
                                 <div class="form-group">
                                     <label for="formGroupExampleInput"
                                         class="color-dark fs-14 fw-500 align-center">Jabatan</label>
                                     <input type="text" class="form-control ih-medium ip-gray radius-xs b-light px-15"
-                                        id="formGroupExampleInput" name="jabatan">
+                                        id="formGroupExampleInput" name="jabatan" value="{{ $participant->jabatan }}"
+                                        disabled>
                                 </div>
                                 <div class="form-group">
                                     <label for="formGroupExampleInput" class="color-dark fs-14 fw-500 align-center">No
-                                        Hp</label>
+                                        Hp <small class="text-danger">*</small></label>
                                     <input type="number" maxlength="15"
                                         class="form-control ih-medium ip-gray radius-xs b-light px-15"
-                                        id="formGroupExampleInput" name="no_hp">
+                                        id="formGroupExampleInput" name="no_hp" value="{{ $participant->no_hp }}">
                                 </div>
                                 <div class="form-group">
                                     <label for="formGroupExampleInput"
                                         class="color-dark fs-14 fw-500 align-center">Instansi</label>
                                     <input type="text" class="form-control ih-medium ip-gray radius-xs b-light px-15"
-                                        id="formGroupExampleInput" name="instansi">
+                                        id="formGroupExampleInput" name="instansi" value="{{ $participant->instansi }}"
+                                        disabled>
                                 </div>
                                 <div class="form-group form-element-textarea">
                                     <label for="exampleFormControlTextarea1"
                                         class="il-gray fs-14 fw-500 align-center">Alamat Instansi</label>
-                                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="alamat_instansi"></textarea>
+                                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="alamat_instansi" disabled>{{ $participant->alamat_instansi }}</textarea>
                                 </div>
                                 <div class="row">
                                     <div class="col-md">
@@ -153,13 +157,17 @@
                                             <div class="form-group mb-0">
                                                 <input type="text" name="date-range-from"
                                                     class="form-control form-control-default" id="tanggal_kedatangan"
-                                                    placeholder="Tanggal Kedatangan">
+                                                    placeholder="Tanggal Kedatangan"
+                                                    value="{{ Carbon::parse($participant->tanggal_kedatangan)->format('Y-m-d') }}"
+                                                    disabled>
                                             </div>
                                             <span class="divider">-</span>
                                             <div class="form-group mb-0">
                                                 <input type="text" name="date-range-to"
                                                     class="form-control form-control-default" id="tanggal_kembali"
-                                                    placeholder="Tanggal Kembali">
+                                                    placeholder="Tanggal Kembali"
+                                                    value="{{ Carbon::parse($participant->tanggal_kembali)->format('Y-m-d') }}"
+                                                    disabled>
                                             </div>
                                             <a class="date-picker-icon" href="#"><span
                                                     data-feather="calendar"></span></a>
@@ -171,16 +179,18 @@
                                         class="color-dark fs-14 fw-500 align-center">Penginapan</label>
                                     <input type="text"
                                         class="form-control ih-medium ip-gray radius-xs b-light px-15"
-                                        id="formGroupExampleInput" name="penginapan">
+                                        id="formGroupExampleInput" name="penginapan"
+                                        value="{{ $participant->penginapan }}" disabled>
                                 </div>
                                 <div class="form-group">
                                     <label for="formGroupExampleInput"
                                         class="color-dark fs-14 fw-500 align-center">Ukuran
                                         Baju <small class="text-danger">*</small></label>
                                     <div class="atbd-select">
-                                        <select name="size" id="select-search" class="form-control">
+                                        <select name="size" id="select-search" class="form-control" disabled>
                                             @foreach (Helper::getSizes() as $key => $value)
-                                                <option value="{{ $key }}">
+                                                <option value="{{ $key }}"
+                                                    @if ($participant->ukuran_baju == $key) selected @endif>
                                                     {{ $value }}</option>
                                             @endforeach
                                         </select>
@@ -202,22 +212,22 @@
 </div>
 </div>
 <script>
-    $('#formAdd').submit(function(e) {
+    $('#formEdit').submit(function(e) {
         $(".submit").prop('disabled', true);
         e.preventDefault();
         $('.is-invalid').each(function() {
             $('.is-invalid').removeClass('is-invalid');
         });
         $.ajax({
-            url: "{{ route('participant_add_post') }}",
-            type: "POST",
-            data: $('#formAdd').serialize(),
+            url: "{{ route('participant_edit_patch', $participant->participant_id) }}",
+            type: "PATCH",
+            data: $('#formEdit').serialize(),
             success: function(res) {
                 if (res.status == true) {
                     Swal.fire({
                         icon: 'success',
                         title: 'Success!',
-                        text: 'Add Successful',
+                        text: 'Edit Successful',
                     })
                     setTimeout(function() {
                         window.location.href = "{{ route('participant_view_index') }}";
@@ -242,7 +252,7 @@
                         text: 'Something went wrong',
                         confirmButtonText: 'Close'
                     })
-                showError(res.responseJSON.errors, "#formAdd");
+                showError(res.responseJSON.errors, "#formEdit");
                 $.each(res.responseJSON.errors, function(idx, item) {
                     toastr.error(idx = item);
                 });

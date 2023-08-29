@@ -124,7 +124,7 @@
                                                 <div class="form-group form-element-textarea">
                                                     <label for="exampleFormControlTextarea1"
                                                         class="il-gray fs-14 fw-500 align-center">Alamat
-                                                        Instansi <small class="text-danger">*</small></label>
+                                                        Instansi</label>
                                                     <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="alamat_instansi" required></textarea>
                                                 </div>
                                             </div>

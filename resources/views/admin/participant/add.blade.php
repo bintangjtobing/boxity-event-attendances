@@ -110,14 +110,15 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="formGroupExampleInput"
-                                        class="color-dark fs-14 fw-500 align-center">Name</label>
+                                    <label for="formGroupExampleInput" class="color-dark fs-14 fw-500 align-center">Name
+                                        <small class="text-danger">*</small></label>
                                     <input type="text" class="form-control ih-medium ip-gray radius-xs b-light px-15"
                                         id="formGroupExampleInput" name="name">
                                 </div>
                                 <div class="form-group">
                                     <label for="formGroupExampleInput"
-                                        class="color-dark fs-14 fw-500 align-center">Email</label>
+                                        class="color-dark fs-14 fw-500 align-center">Email <small
+                                            class="text-danger">*</small></label>
                                     <input type="email" class="form-control ih-medium ip-gray radius-xs b-light px-15"
                                         id="formGroupExampleInput" name="email">
                                 </div>
@@ -129,7 +130,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="formGroupExampleInput" class="color-dark fs-14 fw-500 align-center">No
-                                        Hp</label>
+                                        Hp <small class="text-danger">*</small></label>
                                     <input type="number" maxlength="15"
                                         class="form-control ih-medium ip-gray radius-xs b-light px-15"
                                         id="formGroupExampleInput" name="no_hp">

@@ -2,6 +2,8 @@
 
 namespace App\Repository\admin;
 
+use App\Attendances;
+use App\Certificates;
 use Exception;
 use Carbon\Carbon;
 use App\Events;
@@ -99,22 +101,34 @@ class ParticipantRepository
 
     function update($id) {
         $data = [
-            'event_id' => request('event_id'),
+            // 'event_id' => request('event_id'),
             'name' => request('name'),
-            'jabatan' => request('jabatan'),
+            // 'jabatan' => request('jabatan'),
             'no_hp' => request('no_hp'),
             'email' => request('email'),
-            'instansi' => request('instansi'),
-            'alamat_instansi' => request('alamat_instansi'),
-            'tanggal_kedatangan' => Carbon::parse(request('date-range-from')),
-            'penginapan' => request('penginapan'),
-            'tanggal_kembali' => Carbon::parse(request('date-range-to')),
+            // 'instansi' => request('instansi'),
+            // 'alamat_instansi' => request('alamat_instansi'),
+            // 'tanggal_kedatangan' => Carbon::parse(request('date-range-from')),
+            // 'penginapan' => request('penginapan'),
+            // 'tanggal_kembali' => Carbon::parse(request('date-range-to')),
+            // 'ukuran_baju' => request('ukuran_baju')
         ];
-        Participants::where('participant_id',$id)->first()->update($data);
+        $participant = Participants::where('participant_id',$id);
+        $participant->update($data);
     }
 
     function delete($id) {
-        Participants::where('participant_id',$id)->first()->delete();
+        //check apakah ada certificate atau belum, kalau ada delete kalau tidak ada jangan
+        $certificate = Certificates::where('participant_id', $id)->first();
+        if ($certificate) {
+            $certificate->delete();
+        }
+        //check apakah ada attendance atau tidak, aklau ada delete kalau tidak jangan
+        $attendance = Attendances::where('participant_id', $id)->get();
+        if (count($attendance) > 0) {
+            $attendance = $attendance->delete();
+        }
+        $participant = Participants::where('participant_id',$id)->delete();
     }
 
     function import($arr) {
@@ -151,6 +165,7 @@ class ParticipantRepository
                 'tanggal_kembali' => Carbon::parse($value['tanggal_kembali']),
                 'qr_code' => $qr_code,
                 'created_at' => $value['created_at'],
+                'ukuran_baju' => $value['ukuran_baju']
             ]);
             $lastNumber = $newNumber;
         }

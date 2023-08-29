@@ -4,6 +4,7 @@ namespace App;
 
 use App\Events;
 use App\Attendances;
+use App\Certificates;
 use Illuminate\Database\Eloquent\Model;
 
 class Participants extends Model
@@ -31,5 +32,9 @@ class Participants extends Model
 
     public function Attendance() {
         return $this->hasMany(Attendances::class, 'participant_id', 'participant_id');
+    }
+
+    public function Certificate() {
+        return $this->hasOne(Certificates::class, 'participant_id', 'participant_id');
     }
 }
