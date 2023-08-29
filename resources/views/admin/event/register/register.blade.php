@@ -101,8 +101,7 @@
                                             <div class="col">
                                                 <div class="form-group">
                                                     <label for="formGroupExampleInput"
-                                                        class="color-dark fs-14 fw-500 align-center">Instansi <small
-                                                            class="text-danger">*</small></label>
+                                                        class="color-dark fs-14 fw-500 align-center">Instansi </label>
                                                     <input type="text"
                                                         class="form-control ih-medium ip-gray radius-xs b-light px-15"
                                                         id="formGroupExampleInput" name="instansi" required>
@@ -111,8 +110,7 @@
                                             <div class="col">
                                                 <div class="form-group">
                                                     <label for="formGroupExampleInput"
-                                                        class="color-dark fs-14 fw-500 align-center">Jabatan <small
-                                                            class="text-danger">*</small></label>
+                                                        class="color-dark fs-14 fw-500 align-center">Jabatan </label>
                                                     <input type="text"
                                                         class="form-control ih-medium ip-gray radius-xs b-light px-15"
                                                         id="formGroupExampleInput" name="jabatan" required>
@@ -133,8 +131,8 @@
                                             <div class="col">
                                                 <div class="form-group">
                                                     <label for="formGroupExampleInput"
-                                                        class="color-dark fs-14 fw-500 align-center">Penginapan <small
-                                                            class="text-danger">*</small></label>
+                                                        class="color-dark fs-14 fw-500 align-center">Penginapan
+                                                    </label>
                                                     <input type="text"
                                                         class="form-control ih-medium ip-gray radius-xs b-light px-15"
                                                         id="formGroupExampleInput" name="penginapan" required>
