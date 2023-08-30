@@ -74,6 +74,7 @@ class ParticipantRepository
             'penginapan' => request('penginapan'),
             'tanggal_kembali' => Carbon::parse(request('date-range-to')),
             'qr_code' => $qr_code,
+            'ukuran_baju' => request('ukuran_baju')
         ];
         $participant = Participants::create($data);
         if ($participant == true) {

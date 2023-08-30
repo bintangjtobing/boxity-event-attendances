@@ -134,6 +134,7 @@ class Helper
 
     public static function getSizes() {
         $sizes = [
+            'All Size' => 'All Size',
             'XS' => 'XS',
             'S' => 'S',
             'M' => 'M',
