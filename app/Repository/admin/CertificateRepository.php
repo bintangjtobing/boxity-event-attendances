@@ -47,7 +47,7 @@ class CertificateRepository
         $participant = Participants::where('qr_code', $qr_code)->first();
         $nama = $participant->name;
         $token = $participant->qr_code;
-        $qr_code_path = $participant->qr_code_file_name;
+        $qr_code_path = public_path('images/certificate/qr-code/img-' . $token . '.png');
         $filename = 'SERTIFIKAT.pdf';
         $certificatename = $participant->Event->name . '-' . $nama . '.pdf';
         $outputFolder = public_path('certificates'); // Folder tujuan
@@ -108,8 +108,9 @@ class CertificateRepository
         $check = Certificates::where('participant_id', $participant->participant_id)->first();
         if ($check) {
             return  [
-                'status' => true,
-                'message' => 'Sudah Tervalidasi'
+                'name' => $participant->name,
+                'message' => 'Sudah Tervalidasi',
+                'token' => $participant->qr_code
             ];
         }
         return [

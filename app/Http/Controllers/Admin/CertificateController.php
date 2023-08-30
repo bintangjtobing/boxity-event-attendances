@@ -12,12 +12,13 @@ use App\Repository\admin\SendCertificateRepository;
 
 class CertificateController extends Controller
 {
-    protected $repo, $certificate;
+    protected $repo, $certificate, $sertifikat;
 
     public function __construct()
     {
         $this->repo = new CertificateRepository;
         $this->certificate = new SendCertificateRepository;
+        $this->sertifikat = new CertificateRepository;
     }
 
     public function viewCertificate($eventName, $participantName)
@@ -39,7 +40,7 @@ class CertificateController extends Controller
     public function verificationCertificate($token)
     {
         $check = $this->repo->checkCertificate($token);
-        return response()->json($check);
+        return view('validation', compact('check'));
     }
 
     function data(Request $request)
@@ -58,6 +59,11 @@ class CertificateController extends Controller
             ];
             return $message;
         }
+        // save qrcode sertifikat
+        $this->certificate->saveQrCodeCertificate($participant->qr_code);
+        // //save sertifikat
+        // $save_certificate = $this->sertifikat->getPathFile();
+
         if ($participant->email != null) {
             $this->certificate->sendCertificate($participant_id);
         }

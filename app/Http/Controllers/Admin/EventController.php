@@ -7,18 +7,22 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Repository\admin\EventRepository;
-use App\Repository\admin\ParticipantRepository;
 use App\Repository\admin\SendQrRepository;
+use App\Repository\admin\CertificateRepository;
+use App\Repository\admin\ParticipantRepository;
+use App\Repository\admin\SendCertificateRepository;
 
 class EventController extends Controller
 {
-    protected $repo, $qr_code, $participant;
+    protected $repo, $qr_code, $participant, $sertifikat, $certificate;
 
     public function __construct()
     {
         $this->repo = new EventRepository;
         $this->qr_code = new SendQrRepository;
         $this->participant = new ParticipantRepository;
+        $this->sertifikat = new CertificateRepository;
+        $this->certificate = new SendCertificateRepository;
     }
 
     public function getQrCode($token) {
@@ -142,7 +146,10 @@ class EventController extends Controller
             $check = $this->repo->processRegister($name);
             if ($check['status'] == true) {
                 if ($check['email'] != null) {
+                    //save qrcode attendance
                     $this->qr_code->sendQrCode($check['token']);
+                    // save qrcode sertifikat
+                    $this->certificate->saveQrCodeCertificate($check['token']);
                 }
                 if ($check['no_hp'] != null) {
                     $this->qr_code->sendQrCodeToWa($check);

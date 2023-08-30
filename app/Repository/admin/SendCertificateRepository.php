@@ -32,7 +32,7 @@ class SendCertificateRepository
             'start_time' => Carbon::parse($event_start_time)->format('H:i A'),
             'end_time' => $event_end_time,
             'location' => $event_location,
-            'certificate_filename' => $filename
+            'token' => $filename
         ];
         SendCertificateJob::dispatch($data);
     }
@@ -51,5 +51,21 @@ class SendCertificateRepository
         Certificates::where('participant_id', $data['participant_id'])->where('event_id', $data['event_id'])->update([
             'status' => 1
         ]);
+    }
+
+    public function saveQrCodeCertificate($token)
+    {
+        // Check if the QR code with the given token already exists
+        $existingQrCodePath = public_path('images/certificate/qr-code/img-' . $token . '.png');
+
+        if (file_exists($existingQrCodePath)) {
+            // QR code already exists, no need to create again
+            return;
+        }
+
+        $verif = route('certificate_verification', ['token' => $token]);
+        $image = QrCode::format('png')->merge('https://res.cloudinary.com/boxity-id/image/upload/v1693136775/Logo_ABPPTSI_nfb8ns.png', .2, true)->errorCorrection('H')->size(200)->generate($verif);
+        $output_file = public_path('images/certificate/qr-code/img-' . $token . '.png');
+        file_put_contents($output_file, $image);
     }
 }

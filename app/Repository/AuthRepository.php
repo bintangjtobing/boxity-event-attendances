@@ -88,7 +88,8 @@ class AuthRepository
             'end_time' => $event->end_time,
             'location' => $event->location,
             'count_attendance' => $total_attendance,
-            'ukuran_baju' => $data->ukuran_baju ?? 'All Size'
+            'ukuran_baju' => $data->ukuran_baju ?? 'All Size',
+            'token' => $data->qr_code
         ];
     }
 }

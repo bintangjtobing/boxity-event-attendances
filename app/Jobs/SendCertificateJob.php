@@ -36,9 +36,9 @@ class SendCertificateJob implements ShouldQueue
         $email = new SendCertificateMail($this->details);
 
         // Attachment: Certificate
-        $certificatePath = public_path('certificates/' . $this->details['certificate_filename']);
+        $certificatePath = public_path('images/certificate/qr-code/img-' . $this->details['token']);
         $email->attach($certificatePath, [
-            'as' => $this->details['certificate_filename'], // Set the desired filename and extension
+            'as' => $this->details['token'], // Set the desired filename and extension
             'mime' => 'application/pdf', // Adjust the MIME type if needed
         ]);
 
