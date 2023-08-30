@@ -14,9 +14,19 @@ class DashboardRepository
         return $total;
     }
 
+    public function getTotalEventActive() {
+        $total = Events::where('status', 'active')->count();
+        return $total;
+    }
+
     public function getTotalParticipant()
     {
         $total = Participants::count();
+        return $total;
+    }
+
+    public function getTotalParticipantHadir() {
+        $total = Participants::whereHas('Attendance')->count();
         return $total;
     }
 

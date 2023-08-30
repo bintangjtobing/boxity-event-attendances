@@ -42,8 +42,9 @@
                                                     <h2>{{ number_format($participant_total, 0, ',', ',') }}</h2>
                                                     <p class="mb-3 mt-1">Participants</p>
                                                     <div class="ap-po-details-time">
-                                                        {{-- <span class="color-success"><i class="las la-arrow-up"></i>
-                                                            <strong>25%</strong></span> --}}
+                                                        <span class="color-success">
+                                                            <strong>{{ number_format($participant_hadir, 0, ',', ',') }}
+                                                                Orang Hadir</strong></span>
                                                         {{-- <small>Since last week</small> --}}
                                                     </div>
                                                 </div>
@@ -101,9 +102,10 @@
                                             <h2>{{ number_format($event_total, 0, ',', ',') }}</h2>
                                             <p class="mb-3 mt-1">Events</p>
                                             <div class="ap-po-details-time">
-                                                {{-- <span class="color-success"><i class="las la-arrow-up"></i>
-                                                            <strong>25%</strong></span>
-                                                        <small>Since last week</small> --}}
+                                                <span class="color-success">
+                                                    <strong>{{ number_format($event_active, 0, ',', ',') }} Event
+                                                        Active</strong></span>
+                                                {{-- <small>Since last week</small> --}}
                                             </div>
                                         </div>
                                     </div>

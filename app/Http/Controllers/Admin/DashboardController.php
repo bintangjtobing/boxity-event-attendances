@@ -18,7 +18,9 @@ class DashboardController extends Controller
     public function view()
     {
         $data['event_total'] = $this->repo->getTotalEvent();
+        $data['event_active'] = $this->repo->getTotalEventActive();
         $data['participant_total'] = $this->repo->getTotalParticipant();
+        $data['participant_hadir'] = $this->repo->getTotalParticipantHadir();
         $data['now'] = $this->repo->getDateNow();
         $data['time_of_day'] = $this->repo->getTimeOfDay();
         $content = view('admin.dashboard.view', $data);
