@@ -21,12 +21,12 @@
         </td>
         <td>
             <div class="userDatatable-content">
-                {{ $value->jabatan }}
+                {{ $value->jabatan ?? '-' }}
             </div>
         </td>
         <td>
             <div class="userDatatable-content">
-                {{ $value->instansi }}
+                {{ $value->instansi ?? '-' }}
             </div>
         </td>
         <td>
@@ -43,6 +43,12 @@
                     <a href="javascript:void(0)" class="remove" onclick="deleteData('{{ $value->participant_id }}')">
                         <img src="{{ asset('icons/trash-2.svg') }}" width="16" alt=""></a>
                 </li>
+                @if (auth()->guard('admin')->user()->role_id == 2)
+                    <li>
+                        <a href="#" onclick="sendQrCode('{{ $value->participant_id }}')" class="edit">
+                            <img src="{{ asset('icons/send.svg') }}" width="16" alt=""></a>
+                    </li>
+                @endif
             </ul>
         </td>
     </tr>

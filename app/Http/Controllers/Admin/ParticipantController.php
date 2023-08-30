@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use Carbon\Carbon;
+use App\Participants;
 use Illuminate\Http\Request;
 use App\Imports\ParticipantImport;
 use Illuminate\Support\Facades\DB;
@@ -178,5 +179,35 @@ class ParticipantController extends Controller
         return response()->download($file, $filename, [
             'Content-Type' => 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
         ]);
+    }
+
+    public function sendQrCode(Request $request) {
+        $participant_id = request('participant_id');
+        $participant = Participants::where('participant_id', $participant_id)->first();
+        if (!$participant) {
+            $message = [
+                'status' => false,
+                'message' => 'Participant not found.'
+            ];
+            return $message;
+        }
+        if ($participant->email != null) {
+            $this->qr_code->sendQrCode($participant->qr_code);
+        }
+        if ($participant->no_hp != null) {
+            $data = [
+                'status' => true,
+                'message' => 'Registration success',
+                'token' => $participant->qr_code,
+                'no_hp' => $participant->no_hp,
+                'email' => $participant->email
+            ];
+            $this->qr_code->sendQrCodeToWa($data);
+        }
+        $message = [
+            'status' => true,
+            'message' => 'The Qr Code has been successfully sent.'
+        ];
+        return $message;
     }
 }

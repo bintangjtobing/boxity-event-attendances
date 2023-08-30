@@ -46,7 +46,7 @@ class ParticipantRepository
 
     function getData($n) {
         $search = request('search');
-        $data = Participants::orderBy('participant_id', 'asc');
+        $data = Participants::orderBy('participant_id', 'desc');
         if ($search) {
             $data = $data->where('name', 'like', '%' . $search . '%');
         }

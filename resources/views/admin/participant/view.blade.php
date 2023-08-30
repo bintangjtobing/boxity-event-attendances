@@ -277,4 +277,47 @@
             }
         });
     }
+
+    function sendQrCode(participant_id) {
+        var participant_id = participant_id;
+        var CSRF_TOKEN = $('meta[name="_token"]').attr('content');
+        $.ajax({
+            url: `participant/send-qr-code/` + participant_id,
+            method: 'POST',
+            data: {
+                _token: CSRF_TOKEN,
+                participant_id: participant_id
+            },
+            beforeSend: function(e) {
+                $('#overlay').css("display", "block");
+            },
+            success: function(data) {
+                $('#overlay').css("display", "none");
+                if (data.status == true) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Success!',
+                        text: data.message,
+                        confirmButtonText: 'Close'
+                    });
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error!',
+                        text: data.message,
+                        confirmButtonText: 'Close'
+                    });
+                }
+            },
+            error: function(error) {
+                $('#overlay').css("display", "none");
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error!',
+                    text: 'Something went wrong',
+                    confirmButtonText: 'Close'
+                });
+            }
+        });
+    }
 </script>
