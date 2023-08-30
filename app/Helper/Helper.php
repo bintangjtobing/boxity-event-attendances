@@ -1,11 +1,12 @@
 <?php
 namespace App\Helper;
 
-use App\ModuleGroups;
 use App\Modules;
 use App\ModulesUser;
-use Illuminate\Support\Facades\Auth;
+use App\ModuleGroups;
+use App\Participants;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Request;
 
@@ -142,6 +143,18 @@ class Helper
             'XXXL' => 'XXXL'
         ];
         return $sizes;
+    }
+
+    public static function getParticipantId() {
+        $latestParticipant = Participants::orderBy('participant_id', 'desc')->latest()->first();
+        if ($latestParticipant) {
+            $lastNumber = intval(substr($latestParticipant->participant_id, 1));
+            $newNumber = $lastNumber + 1;
+        } else {
+            $newNumber = 1;
+        }
+        $newParticipantId = 'P' . str_pad($newNumber, 5, '0', STR_PAD_LEFT);
+        return $newParticipantId;
     }
 
     public static function generateHash($input) {

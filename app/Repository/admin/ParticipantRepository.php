@@ -2,13 +2,14 @@
 
 namespace App\Repository\admin;
 
+use Exception;
+use App\Events;
+use Carbon\Carbon;
 use App\Attendances;
 use App\Certificates;
-use Exception;
-use Carbon\Carbon;
-use App\Events;
-use Illuminate\Support\Str;
 use App\Participants;
+use App\Helper\Helper;
+use Illuminate\Support\Str;
 
 class ParticipantRepository
 {
@@ -58,14 +59,7 @@ class ParticipantRepository
             $count = Participants::where('qr_code', $qr_code)->count();
         } while ($count > 0);
 
-        $latestParticipant = Participants::latest()->first();
-        if ($latestParticipant) {
-            $lastNumber = intval(substr($latestParticipant->participant_id, 1));
-            $newNumber = $lastNumber + 1;
-        } else {
-            $newNumber = 1;
-        }
-        $newParticipantId = 'P' . str_pad($newNumber, 5, '0', STR_PAD_LEFT);
+        $newParticipantId = Helper::getParticipantId();
 
         $data = [
             'participant_id' => $newParticipantId,
