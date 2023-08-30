@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Attendances;
 use App\Participants;
 use setasign\Fpdi\Fpdi;
 use Illuminate\Http\Request;
@@ -61,14 +62,32 @@ class CertificateController extends Controller
         }
         // save qrcode sertifikat
         $this->certificate->saveQrCodeCertificate($participant->qr_code);
-        // //save sertifikat
-        // $save_certificate = $this->sertifikat->getPathFile();
-
+        //save sertifikat
+        $save = $save_certificate = $this->sertifikat->getPathFile();
         if ($participant->email != null) {
-            $this->certificate->sendCertificate($participant_id);
+            $datas = [
+                'status' => true,
+                'message' => 'Attendance success',
+                'name' => $participant->name,
+                'event' => $participant->Event->name,
+                'email' => $participant->email,
+                'no_hp' => $participant->no_hp,
+                'participant_id' => $participant->participant_id,
+                'event_id' => $participant->Event->id,
+                'start_date' => $participant->Event->start_date,
+                'start_time' => $participant->Event->start_time,
+                'end_time' => $participant->Event->end_time,
+                'location' => $participant->Event->location,
+                'ukuran_baju' => $participant->ukuran_baju ?? 'All Size',
+                'token' => $participant->qr_code
+            ];
+            $this->certificate->sendCertificate($datas);
         }
         if ($participant->no_hp != null) {
             $data = [
+                'name' => $participant->name,
+                'event' => $participant->Event->name,
+                'start_date' => $participant->Event->start_date,
                 'participant_id' => $participant->participant_id,
                 'no_hp' => $participant->no_hp
             ];
@@ -80,6 +99,59 @@ class CertificateController extends Controller
             'message' => 'The certificate has been successfully sent.'
         ];
         return $message;
+    }
+
+    public function sendCertificateToAll(Request $request) {
+        $data = Attendances::get();
+        foreach ($data as $i) {
+            $participant = Participants::where('participant_id', $i->participant_id)->first();
+            if (!$participant) {
+                $message = [
+                    'status' => false,
+                    'message' => 'Participant not found.'
+                ];
+                return $message;
+            }
+            // save qrcode sertifikat
+            $this->certificate->saveQrCodeCertificate($participant->qr_code);
+            //save sertifikat
+            $save = $save_certificate = $this->sertifikat->getPathFile($participant->participant_id);
+            if ($participant->email != null) {
+                $datas = [
+                    'status' => true,
+                    'message' => 'Attendance success',
+                    'name' => $participant->name,
+                    'event' => $participant->Event->name,
+                    'email' => $participant->email,
+                    'no_hp' => $participant->no_hp,
+                    'participant_id' => $participant->participant_id,
+                    'event_id' => $participant->Event->id,
+                    'start_date' => $participant->Event->start_date,
+                    'start_time' => $participant->Event->start_time,
+                    'end_time' => $participant->Event->end_time,
+                    'location' => $participant->Event->location,
+                    'ukuran_baju' => $participant->ukuran_baju ?? 'All Size',
+                    'token' => $participant->qr_code
+                ];
+                $this->certificate->sendCertificate($datas);
+            }
+            if ($participant->no_hp != null) {
+                $data = [
+                    'name' => $participant->name,
+                    'event' => $participant->Event->name,
+                    'start_date' => $participant->Event->start_date,
+                    'participant_id' => $participant->participant_id,
+                    'no_hp' => $participant->no_hp
+                ];
+                $this->certificate->sendCertificateToWa($data);
+            }
+            $this->repo->updateStatus($participant->participant_id);
+            $message = [
+                'status' => true,
+                'message' => 'The certificate has been successfully sent.'
+            ];
+            return $message;
+        }
     }
 
     public function downloadCertificate(Request $request) {

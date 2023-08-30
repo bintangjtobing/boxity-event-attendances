@@ -58,6 +58,8 @@ class ParticipantController extends Controller
         try {
             $data = $this->repo->add();
             if($data['status'] == true) {
+                // save qrcode sertifikat
+                $this->certificate->saveQrCodeCertificate($data['token']);
                 if ($data['email'] != null) {
                     $this->qr_code->sendQrCode($data['token']);
                 }

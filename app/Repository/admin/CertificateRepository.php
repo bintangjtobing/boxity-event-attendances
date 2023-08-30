@@ -41,16 +41,25 @@ class CertificateRepository
         Certificates::where('id', $id)->delete();
     }
 
-    public function getPathFile()
+    public function getPathFile($p_id = null)
     {
         $qr_code = request('qr_code');
-        $participant = Participants::where('qr_code', $qr_code)->first();
+        $participant_id = $p_id;
+        if ($p_id == null) {
+            $participant_id = request('participant_id');
+        }
+        if ($qr_code) {
+            $participant = Participants::where('qr_code', $qr_code)->first();
+        }
+        if ($participant_id) {
+            $participant = Participants::where('participant_id', $participant_id)->first();
+        }
         $nama = $participant->name;
         $token = $participant->qr_code;
         $qr_code_path = public_path('images/certificate/qr-code/img-' . $token . '.png');
         $filename = 'SERTIFIKAT.pdf';
         $certificatename = $participant->Event->name . '-' . $nama . '.pdf';
-        $outputFolder = public_path('certificates'); // Folder tujuan
+        $outputFolder = public_path('certificates/new'); // Folder tujuan
         $outputfile = $outputFolder . '/' . $certificatename;
 
         // Buat folder jika belum ada

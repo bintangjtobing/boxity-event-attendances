@@ -145,11 +145,11 @@ class EventController extends Controller
         try {
             $check = $this->repo->processRegister($name);
             if ($check['status'] == true) {
+                // save qrcode sertifikat
+                $this->certificate->saveQrCodeCertificate($check['token']);
                 if ($check['email'] != null) {
                     //save qrcode attendance
                     $this->qr_code->sendQrCode($check['token']);
-                    // save qrcode sertifikat
-                    $this->certificate->saveQrCodeCertificate($check['token']);
                 }
                 if ($check['no_hp'] != null) {
                     $this->qr_code->sendQrCodeToWa($check);

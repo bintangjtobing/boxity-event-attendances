@@ -24,7 +24,7 @@ class SendCertificateRepository
         $event_start_time = $data['start_time'];
         $event_end_time = $data['end_time'];
         $filename = $event_name.'-'.$participant_name.'.pdf';
-        $data = [
+        $datas = [
             'name' => $participant_name,
             'email' => $participant_email,
             'title' => $event_name,
@@ -32,9 +32,9 @@ class SendCertificateRepository
             'start_time' => Carbon::parse($event_start_time)->format('H:i A'),
             'end_time' => $event_end_time,
             'location' => $event_location,
-            'token' => $filename
+            'certificatePath' => $filename
         ];
-        SendCertificateJob::dispatch($data);
+        SendCertificateJob::dispatch($datas);
     }
 
     public function sendCertificateToWa($data) {

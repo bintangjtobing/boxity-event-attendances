@@ -46,10 +46,10 @@
                         target="_blank" class="view">
                         <img src="{{ asset('icons/eye.svg') }}" width="16" alt=""></a>
                 </li>
-                {{-- <li>
+                <li>
                     <a href="#" onclick="sendCertificate('{{ $value->participant_id }}')" class="edit">
                         <img src="{{ asset('icons/send.svg') }}" width="16" alt=""></a>
-                </li> --}}
+                </li>
                 {{-- <li>
                     <button class="btn btn-sm btn-default btn-warning"
                         onclick="sendCertificate('{{ $value->participant_id }}')" type="button">

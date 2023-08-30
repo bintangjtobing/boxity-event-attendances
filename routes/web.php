@@ -70,7 +70,7 @@ Route::prefix('/')->group(function () {
             Route::post('/add', [AdminParticipantController::class, 'addPost'])->name('participant_add_post');
             Route::patch('/{id}', [AdminParticipantController::class, 'update'])->name('participant_edit_patch');
             Route::delete('/delete/{id}', [AdminParticipantController::class, 'delete'])->name('participant_delete_data');
-            Route::post('/send-qr-code/{participant_id}', [AdminParticipantController::class, 'sendQrCode'])->name('certificate_view_send');
+            Route::post('/send-qr-code/{participant_id}', [AdminParticipantController::class, 'sendQrCode'])->name('participant_view_send');
         });
 
         Route::prefix('/attendance')->group(function () {
@@ -87,6 +87,7 @@ Route::prefix('/')->group(function () {
             Route::get('/', [AdminCertificateController::class, 'view'])->name('certificate_view_index');
             Route::get('/data', [AdminCertificateController::class, 'data'])->name('certificate_view_data');
             Route::post('/send-certificate/{participant_id}', [AdminCertificateController::class, 'sendCertificate'])->name('certificate_view_send');
+            Route::post('/send-certificate', [AdminCertificateController::class, 'sendCertificateToAll'])->name('certificate_view_send-to-all');
         });
 
         Route::prefix('/role')->group(function () {

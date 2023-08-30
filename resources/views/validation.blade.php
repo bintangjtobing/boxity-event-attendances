@@ -11,21 +11,21 @@
 </head>
 
 <body>
-    <p>
-        {{ $check['token'] }}
-        <br>
-        {{ $check['name'] }}
-        <br><br>
-        Mengetahui:
-        Ketua ABP-PTSI
-        PROF. Dr. THOMAS SUYATNO
-        <br><br>
-        Ketua Panitia
-        PROF Dr. H. BAHDIN NUR TANJUNG SE., MM
-        <br><br>
-        Sekjen
-        PROF Mts. ARIEF, M.M., M.B.A., PM.
-    </p>
+    {{ $check['token'] }}
+    <br>
+    {{ $check['name'] }}
+    <br><br>
+    Mengetahui: <br>
+    Ketua ABP-PTSI <br>
+    PROF. Dr. THOMAS SUYATNO <br>
+    <br><br>
+    Ketua Panitia <br>
+    PROF Dr. H. BAHDIN NUR TANJUNG SE., MM <br>
+    <br><br>
+    Sekjen <br>
+    PROF Mts. ARIEF, M.M., M.B.A., PM. <br>
+    <br><br>
+    <strong style="color: green; font-size:20px;">Terverifikasi</strong>
 </body>
 
 </html>
