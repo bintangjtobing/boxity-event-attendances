@@ -18,7 +18,7 @@ class CertificateRepository
 
     function getData($n) {
         $search = request('search');
-        $data = Certificates::with(['Participant', 'Event'])->orderBy('id', 'asc');
+        $data = Certificates::with(['Participant', 'Event'])->orderBy('id', 'desc');
         if ($search) {
             $data = $data->whereHas('Participant', function($query) use($search) {
                 $query->where('name', 'like', '%' . $search . '%');
