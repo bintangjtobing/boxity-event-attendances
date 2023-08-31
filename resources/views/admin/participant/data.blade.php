@@ -49,6 +49,8 @@
                             <img src="{{ asset('icons/send.svg') }}" width="16" alt=""></a>
                     </li>
                 @endif
+                {{-- <button class="btn btn-sm btn-primary" onclick="sendMateri('{{ $value->participant_id }}')">Send
+                    Materi</button> --}}
             </ul>
         </td>
     </tr>

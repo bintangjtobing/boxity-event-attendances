@@ -23,7 +23,8 @@ class SendCertificateRepository
         $event_start_date = $data['start_date'];
         $event_start_time = $data['start_time'];
         $event_end_time = $data['end_time'];
-        $filename = $event_name.'-'.time().'.pdf';
+        $qr_code = $data['qr_code'];
+        $filename = $event_name.'-'.$qr_code.'.pdf';
         $datas = [
             'name' => $participant_name,
             'email' => $participant_email,
@@ -40,9 +41,10 @@ class SendCertificateRepository
     public function sendCertificateToWa($data) {
         $participant_name = $data['name'];
         $event_name = $data['event'];
+        $qr_code = $data['qr_code'];
         $event_start_date = $data['start_date'];
         $event_date = Carbon::parse($event_start_date)->isoFormat('D MMMM Y');
-        $link = route('certificate_download', ['eventName' => $event_name, 'participantName' => $participant_name]);
+        $link = route('certificate_download', ['eventName' => $event_name, 'qr_code' => $qr_code]);
         $isi_pesan_WA_ke_pusat = "*$participant_name yang terhormat!*\nTerima kasih atas kehadiran dan partisipasi aktif Anda di $event_name kami baru-baru ini, yang diadakan pada tanggal $event_date. Antusiasme dan keterlibatan Anda benar-benar memperkaya suasana acara.\n\nSebagai bentuk apresiasi kami, dengan senang hati kami mempersembahkan kepada Anda sertifikat yang mengakui kontribusi signifikan Anda pada Acara Pengujian Hari ini.\n\nAnda dapat mengunduh sertifikat Anda dengan mengklik tautan berikut : $link\n\nSekali lagi, terima kasih telah menjadi bagian integral dari $event_name, dan menjadikannya acara yang benar-benar berkesan.\nKami harap informasi ini bermanfaat bagi Anda.\nTerima kasih.\nSalam,\n\n$event_name";
         $pusat = WablasTrait::sendText($data['no_hp'], $isi_pesan_WA_ke_pusat, 'pusat');
     }

@@ -22,8 +22,10 @@ class CertificateController extends Controller
         $this->sertifikat = new CertificateRepository;
     }
 
-    public function viewCertificate($eventName, $participantName)
+    public function viewCertificate($eventName, $qr_code)
     {
+        $participant = Participants::where('qr_code', $qr_code)->first();
+        $participantName = $participant->name;
         $pdfFilePath = public_path("certificates/{$eventName}-{$participantName}.pdf");
         if (file_exists($pdfFilePath)) {
             return response()->file($pdfFilePath);
@@ -84,7 +86,8 @@ class CertificateController extends Controller
                 'end_time' => $participant->Event->end_time,
                 'location' => $participant->Event->location,
                 'ukuran_baju' => $participant->ukuran_baju ?? 'All Size',
-                'token' => $participant->qr_code
+                'token' => $participant->qr_code,
+                'qr_code' => $participant->qr_code
             ];
             $this->certificate->sendCertificate($datas);
         }
@@ -94,7 +97,8 @@ class CertificateController extends Controller
                 'event' => $participant->Event->name,
                 'start_date' => $participant->Event->start_date,
                 'participant_id' => $participant->participant_id,
-                'no_hp' => $participant->no_hp
+                'no_hp' => $participant->no_hp,
+                'qr_code' => $participant->qr_code
             ];
             $this->certificate->sendCertificateToWa($data);
         }
@@ -146,7 +150,8 @@ class CertificateController extends Controller
                     'event' => $participant->Event->name,
                     'start_date' => $participant->Event->start_date,
                     'participant_id' => $participant->participant_id,
-                    'no_hp' => $participant->no_hp
+                    'no_hp' => $participant->no_hp,
+                    'qr_code' => $participant->qr_code
                 ];
                 $this->certificate->sendCertificateToWa($data);
             }
@@ -161,17 +166,23 @@ class CertificateController extends Controller
 
     public function downloadCertificate(Request $request) {
         $eventName = request('eventName');
-        $participantName = request('participantName');
-        $filename = $eventName . '-' . $participantName . '.pdf';
-        $filePath = public_path('certificates/new/' . $filename);
-
+        $participant = Participants::where('qr_code', request('qr_code'))->first();
+        $qr_code = $participant->qr_code;
+        $participantName = $participant->name;
+        $filename = $eventName . '-' . $qr_code . '.pdf';
+        $filePath = public_path('certificates/' . $filename);
         if (file_exists($filePath)) {
-            $headers = [
-                'Content-Type' => 'application/pdf',
-            ];
-            return response()->download($filePath, $filename, $headers);
+            return response()->file($filePath);
         } else {
-            return response()->json(['error' => 'Certificate not found'], 404);
+            $newfilePath = public_path('certificates/new/' . $filename);
+            if (file_exists($newfilePath)) {
+                $headers = [
+                    'Content-Type' => 'application/pdf',
+                ];
+                return response()->download($filePath, $filename, $headers);
+            } else {
+                return response()->json(['error' => 'Certificate not found'], 404);
+            }
         }
     }
 

@@ -59,7 +59,7 @@ class CertificateRepository
         $token = $participant->qr_code;
         $qr_code_path = public_path('images/certificate/qr-code/img-' . $token . '.png');
         $filename = 'SERTIFIKAT.pdf';
-        $certificatename = $participant->Event->name . '-' . $nama . '.pdf';
+        $certificatename = $participant->Event->name . '-' . $token . '.pdf';
         $outputFolder = public_path('certificates/new'); // Folder tujuan
         $outputfile = $outputFolder . '/' . $certificatename;
 

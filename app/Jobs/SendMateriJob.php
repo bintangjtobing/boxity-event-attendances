@@ -2,7 +2,7 @@
 
 namespace App\Jobs;
 
-use App\Mail\SendQrCodeMail;
+use App\Mail\SendMateriMail;
 use Illuminate\Bus\Queueable;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Queue\SerializesModels;
@@ -10,7 +10,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 
-class SendQrCodeJob implements ShouldQueue
+class SendMateriJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
     protected $details;
@@ -31,7 +31,7 @@ class SendQrCodeJob implements ShouldQueue
      */
     public function handle()
     {
-        $email = new SendQrCodeMail($this->details);
+        $email = new SendMateriMail($this->details);
         Mail::to($this->details['email'])->send($email);
     }
 }

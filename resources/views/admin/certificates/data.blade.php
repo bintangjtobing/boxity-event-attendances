@@ -42,7 +42,7 @@
         <td>
             <ul class="orderDatatable_actions mb-0 d-flex flex-wrap">
                 <li>
-                    <a href="{{ route('certificate_view', ['eventName' => $value->Event->name, 'participantName' => $value->Participant->name]) }}"
+                    <a href="{{ route('certificate_view', ['eventName' => $value->Event->name, 'qr_code' => $value->Participant->qr_code]) }}"
                         target="_blank" class="view">
                         <img src="{{ asset('icons/eye.svg') }}" width="16" alt=""></a>
                 </li>

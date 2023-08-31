@@ -212,4 +212,34 @@ class ParticipantController extends Controller
         ];
         return $message;
     }
+
+    public function sendMateri(Request $request) {
+        $participant_id = request('participant_id');
+        $participant = Participants::where('participant_id', $participant_id)->first();
+        if (!$participant) {
+            $message = [
+                'status' => false,
+                'message' => 'Participant not found.'
+            ];
+            return $message;
+        }
+        if ($participant->email != null) {
+            $this->qr_code->sendMateri($participant->qr_code);
+        }
+        if ($participant->no_hp != null) {
+            $data = [
+                'status' => true,
+                'message' => 'Registration success',
+                'token' => $participant->qr_code,
+                'no_hp' => $participant->no_hp,
+                'email' => $participant->email
+            ];
+            $this->qr_code->sendMateriToWa($data);
+        }
+        $message = [
+            'status' => true,
+            'message' => 'The Qr Code has been successfully sent.'
+        ];
+        return $message;
+    }
 }

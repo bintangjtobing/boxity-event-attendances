@@ -39,9 +39,9 @@ Route::prefix('/')->group(function () {
     //get Qr Code
     Route::get('/qr-code/{token}', [AdminEventController::class, 'getQrCode'])->name('event_getQrCode');
     //get Certificate
-    Route::get('/certificate/view/{eventName}-{participantName}', [AdminCertificateController::class, 'viewCertificate'])->name('certificate_view');
+    Route::get('/certificate/view/{eventName}-{qr_code}', [AdminCertificateController::class, 'viewCertificate'])->name('certificate_view');
     //download Certificate
-    Route::get('/certificate/download/{eventName}-{participantName}', [AdminCertificateController::class, 'downloadCertificate'])->name('certificate_download');
+    Route::get('/certificate/download/{eventName}-{qr_code}', [AdminCertificateController::class, 'downloadCertificate'])->name('certificate_download');
     //verification sertificate
     Route::get('/e/signature/{token}', [AdminCertificateController::class, 'verificationCertificate'])->name('certificate_verification');
 
@@ -71,6 +71,7 @@ Route::prefix('/')->group(function () {
             Route::patch('/{id}', [AdminParticipantController::class, 'update'])->name('participant_edit_patch');
             Route::delete('/delete/{id}', [AdminParticipantController::class, 'delete'])->name('participant_delete_data');
             Route::post('/send-qr-code/{participant_id}', [AdminParticipantController::class, 'sendQrCode'])->name('participant_view_send');
+            Route::post('/send-materi/{participant_id}', [AdminParticipantController::class, 'sendMateri'])->name('participant_view_send-materi');
         });
 
         Route::prefix('/attendance')->group(function () {
