@@ -75,7 +75,7 @@ class AuthController extends Controller
         try {
             $check = $this->attendance->scanAttendances();
             if ($check['status'] == true) {
-                if ($check['count_attendance'] > 1) {
+                if ($check['count_attendance'] == 0) {
                     $save_certificate = $this->sertifikat->getPathFile();
                     if ($save_certificate['status'] == true) {
                         $this->certificate->sendCertificate($check);
