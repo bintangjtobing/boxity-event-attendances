@@ -23,7 +23,7 @@ class SendCertificateRepository
         $event_start_date = $data['start_date'];
         $event_start_time = $data['start_time'];
         $event_end_time = $data['end_time'];
-        $filename = $event_name.'-'.$participant_name.'.pdf';
+        $filename = $event_name.'-'.time().'.pdf';
         $datas = [
             'name' => $participant_name,
             'email' => $participant_email,
