@@ -170,19 +170,14 @@ class CertificateController extends Controller
         $qr_code = $participant->qr_code;
         $participantName = $participant->name;
         $filename = $eventName . '-' . $qr_code . '.pdf';
-        $filePath = public_path('certificates/' . $filename);
+        $filePath = public_path('certificates/new/' . $filename);
         if (file_exists($filePath)) {
-            return response()->file($filePath);
+            $headers = [
+                'Content-Type' => 'application/pdf',
+            ];
+            return response()->download($filePath, $filename, $headers);
         } else {
-            $newfilePath = public_path('certificates/new/' . $filename);
-            if (file_exists($newfilePath)) {
-                $headers = [
-                    'Content-Type' => 'application/pdf',
-                ];
-                return response()->download($filePath, $filename, $headers);
-            } else {
-                return response()->json(['error' => 'Certificate not found'], 404);
-            }
+            return response()->json(['error' => 'Certificate not found'], 404);
         }
     }
 
