@@ -55,7 +55,7 @@ class SendQrRepository
         $event_date = Carbon::parse($event->start_date)->isoFormat('D MMMM Y');
         $event_time = Carbon::parse($event->start_time)->format('H:i A');
         $link = route('event_getQrCode', $token);
-        $linkMateri = 'https://res.cloudinary.com/boxity-id/image/upload/v1693298257/Undangan_Rakernas_Medan_laeefy.pdf';
+        $linkMateri = 'https://s.id/materi-abpptsi-2023';
         $isi_pesan_WA_ke_pusat = "*Halo $name !*\nDengan senang hati kami informasikan bahwa pendaftaran Anda untuk $event_name telah berhasil diterima.\n\n*Detail Acara:*\n*Nama Acara :* $event_name\n*Tanggal :* $event_date\n*Waktu :* $event_time\n\n*Link Materi :* $linkMateri\n\nUntuk memastikan kelancaran proses check-in, harap tunjukkan kode QR berikut kepada staf acara pada saat kedatangan Anda :\nKlik tautan ini untuk mendapatkan kode QR :\n$link\n\nKami harap informasi ini bermanfaat bagi Anda.\nTerima kasih\nSalam,\n\n$event_name";
         $pusat = WablasTrait::sendText($data['no_hp'], $isi_pesan_WA_ke_pusat, 'pusat');
     }
