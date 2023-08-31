@@ -54,8 +54,7 @@
             <li><strong>Nama Acara :</strong> {{ $details['title'] }}</li>
             <li><strong>Tanggal :</strong> {{ $details['date'] }}</li>
             <li><strong>Waktu :</strong> {{ $details['start_time'] }}</li>
-            <li><strong><a
-                        href="https://res.cloudinary.com/boxity-id/image/upload/v1693298257/Undangan_Rakernas_Medan_laeefy.pdf">Link
+            <li><strong><a href="https://s.id/materi-abpptsi-2023">Link
                         Materi</a></strong></li>
         </ul>
         <p>Untuk memastikan kelancaran proses check-in, harap tunjukkan kode QR berikut kepada staf acara pada saat
