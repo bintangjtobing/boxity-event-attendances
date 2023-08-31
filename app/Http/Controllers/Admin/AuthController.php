@@ -75,12 +75,14 @@ class AuthController extends Controller
         try {
             $check = $this->attendance->scanAttendances();
             if ($check['status'] == true) {
-                // $save_certificate = $this->sertifikat->getPathFile();
-                // if ($save_certificate['status'] == true) {
-                //     $this->certificate->sendCertificate($check);
-                //     $this->certificate->sendCertificateToWa($check);
-                //     $this->certificate->updateSendedCertificate($check);
-                // }
+                if ($check['count_attendance'] > 1) {
+                    $save_certificate = $this->sertifikat->getPathFile();
+                    if ($save_certificate['status'] == true) {
+                        $this->certificate->sendCertificate($check);
+                        $this->certificate->sendCertificateToWa($check);
+                        $this->certificate->updateSendedCertificate($check);
+                    }
+                }
                 DB::commit();
                 $message = [
                     'status' => true,

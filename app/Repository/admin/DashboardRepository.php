@@ -30,6 +30,13 @@ class DashboardRepository
         return $total;
     }
 
+    public function getTotalParticipantHadirNow() {
+        $total = Participants::whereHas('Attendance', function($query) {
+            $query->where('attendance_date', Carbon::now()->format('Y-m-d'));
+        })->count();
+        return $total;
+    }
+
     public function getDateNow()
     {
         $now = Carbon::now('Asia/Jakarta');

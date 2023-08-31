@@ -28,7 +28,12 @@ class CertificateController extends Controller
         if (file_exists($pdfFilePath)) {
             return response()->file($pdfFilePath);
         } else {
-            return view('page.404');
+            $newpdfFilePath = public_path("certificates/{$eventName}-{$participantName}.pdf");
+            if (file_exists($newpdfFilePath)) {
+                return response()->file($newpdfFilePath);
+            } else {
+                return view('page.404');
+            }
         }
     }
 

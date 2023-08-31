@@ -89,7 +89,7 @@ class AuthRepository
             'location' => $event->location,
             'count_attendance' => $total_attendance,
             'ukuran_baju' => $data->ukuran_baju ?? 'All Size',
-            'token' => $data->qr_code
+            'token' => $data->qr_code,
         ];
     }
 }

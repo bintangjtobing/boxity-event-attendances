@@ -43,14 +43,17 @@
                                                     <p class="mb-3 mt-1">Participants</p>
                                                     <div class="ap-po-details-time">
                                                         <span class="color-success">
-                                                            <strong>{{ number_format($participant_hadir, 0, ',', ',') }}
-                                                                Orang Hadir</strong></span>
+                                                            <strong>Total
+                                                                {{ number_format($participant_hadir, 0, ',', ',') }}
+                                                                Orang</strong> |
+                                                            Hari ini
+                                                            {{ number_format($participant_hadir, 0, ',', ',') }}
+                                                            Orang<strong></strong></span>
                                                         {{-- <small>Since last week</small> --}}
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-
                                     </div>
                                 </div>
                                 <!-- Card 2 End  -->
