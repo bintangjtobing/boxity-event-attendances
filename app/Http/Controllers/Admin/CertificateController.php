@@ -107,7 +107,7 @@ class CertificateController extends Controller
     }
 
     public function sendCertificateToAll(Request $request) {
-        $data = Attendances::get();
+        $data = Participants::whereHas('Attendance')->get();
         foreach ($data as $i) {
             $participant = Participants::where('participant_id', $i->participant_id)->first();
             if (!$participant) {
