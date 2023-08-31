@@ -24,6 +24,7 @@ class CertificateRepository
                 $query->where('name', 'like', '%' . $search . '%');
             });
         }
+        $data = $data->where('status', 0);
         return $data->paginate($n);
     }
 

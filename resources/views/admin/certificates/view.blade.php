@@ -171,6 +171,7 @@
                         text: data.message,
                         confirmButtonText: 'Close'
                     });
+                    searchData();
                 } else {
                     Swal.fire({
                         icon: 'error',
