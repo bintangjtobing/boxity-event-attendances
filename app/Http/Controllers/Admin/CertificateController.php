@@ -163,7 +163,7 @@ class CertificateController extends Controller
         $eventName = request('eventName');
         $participantName = request('participantName');
         $filename = $eventName . '-' . $participantName . '.pdf';
-        $filePath = public_path('certificates/' . $filename);
+        $filePath = public_path('certificates/new/' . $filename);
 
         if (file_exists($filePath)) {
             $headers = [
