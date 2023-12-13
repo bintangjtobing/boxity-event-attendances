@@ -2,12 +2,14 @@
 
 namespace App\Repository\admin;
 
+use App\Attendances;
 use Exception;
 use App\Events;
 use Carbon\Carbon;
 use App\Participants;
 use App\Helper\Helper;
 use Illuminate\Support\Str;
+use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 
 class EventRepository
 {
@@ -51,6 +53,10 @@ class EventRepository
         while (Events::where('token', $token)->exists()) {
             $token = Str::random(32);
         }
+        $path = null;
+        if (request()->hasFile('cover')) {
+            $path = Cloudinary::upload(request()->file('cover')->getRealPath())->getSecurePath();
+        }
         $data = [
             'name' => request('name'),
             'location' => request('location'),
@@ -59,7 +65,10 @@ class EventRepository
             'start_time' => $start_time,
             'end_time' => $end_time,
             'token' => $token,
-            'status' => 1
+            'status' => 1,
+            'description' => request('description'),
+            'payment_link' => request('payment_link'),
+            'cover_path' => $path
         ];
         Events::create($data);
     }
@@ -91,8 +100,14 @@ class EventRepository
             'end_date' => $end_date,
             'start_time' => $start_time,
             'end_time' => $end_time,
-            'status' => request('status')
+            'status' => request('status'),
+            'description' => request('description'),
+            'payment_link' => request('payment_link'),
         ];
+        if (request()->hasFile('cover')) {
+            $path = Cloudinary::upload(request('cover'))->getSecurePath();
+            $data['cover_path'] = $path;
+        }
         Events::find($id)->update($data);
     }
 
@@ -100,9 +115,9 @@ class EventRepository
         Events::find($id)->delete();
     }
 
-    function getSingleEvent($name) {
+    function getSingleEvent($name, $token) {
         $name = Helper::strReplace($name, '-', ' ');
-        $data = Events::where('name', $name)->first();
+        $data = Events::where('name', $name)->where('token', $token)->first();
         return $data;
     }
 
@@ -112,7 +127,6 @@ class EventRepository
         $participants = Participants::whereHas('Event', function($event) use($name) {
             $event->where('name', $name);
         });
-
         //check email sudah ada atau belum
         if (count($participants->where('email', request('email'))->get()) > 0) {
             return [
@@ -158,6 +172,7 @@ class EventRepository
             'name' => request('name'),
             'email' => request('email'),
             'jabatan' => request('jabatan'),
+            'pekerjaan' => request('pekerjaan'),
             'no_hp' => request('no_hp'),
             'instansi' => request('instansi'),
             'alamat_instansi' => request('alamat_instansi'),
@@ -168,13 +183,72 @@ class EventRepository
             'ukuran_baju' => request('size')
         ];
         Participants::create($data);
-
         return [
             'status' => true,
             'message' => 'Registration success',
             'token' => $qr_code,
             'no_hp' => $data['no_hp'],
             'email' => $data['email']
+        ];
+    }
+
+    function processAttendance($name, $token) {
+        $name = Helper::strReplace($name, '-', ' ');
+        $event = Events::where('name', $name)->where('token', $token)->first();
+        $participantData = [
+            'name' => request('name'),
+            'email' => request('email'),
+            'no_hp' => request('no_hp'),
+            'instansi' => request('instansi'),
+            'jabatan' => request('jabatan')
+        ];
+        $participant = Participants::where('name', $participantData['name'])->where('email', $participantData['email'])->where('no_hp', $participantData['no_hp'])->where('event_id', $event->id)->first();
+        if (!$participant) {
+            return [
+                'status' => false,
+                'message' => 'You not yet register for this event'
+            ];
+        }
+        $attendances = Attendances::whereHas('Event', function($event) use($name) {
+            $event->where('name', $name);
+        })->where('participant_id', $participant->participant_id);
+        //check phone sudah ada atau belum
+        if (count($attendances->get()) > 0) {
+            return [
+                'status' => false,
+                'message' => 'You already attendance for this event'
+            ];
+        }
+
+        $attendances = $attendances->get();
+        //check event masih aktif atau tidak
+        if ($event->status != 'active') {
+            return [
+                'status' => false,
+                'message' => 'Event is not active'
+            ];
+        }
+
+        $data = [
+            'event_id' => $event->id,
+            'participant_id' => $participant->participant_id,
+            'attendance_date' => \Carbon\Carbon::now()->format('Y-m-d'),
+            'attendance_time' => \Carbon\Carbon::now()->format('H:i:s'),
+        ];
+        $check = Attendances::create($data);
+        return [
+            'status' => true,
+            'message' => 'Attendance success',
+            'participant_id' => $participant->participant_id,
+            'name' => $participant->name,
+            'email' => $participant->email,
+            'event' => $event->name,
+            'location' => $event->location,
+            'start_date' => $event->start_date,
+            'start_time' => $event->start_time,
+            'end_time' => $event->end_time,
+            'qr_code' => $participant->qr_code,
+            'event_id' => $event->id
         ];
     }
 }

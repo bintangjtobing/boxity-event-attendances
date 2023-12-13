@@ -5,12 +5,18 @@ namespace App\Repository\admin;
 use Exception;
 use App\Certificates;
 use App\Participants;
+use App\Events;
 use App\Helper\Helper;
 use setasign\Fpdi\Fpdi;
 use Illuminate\Support\Facades\Hash;
 
 class CertificateRepository
 {
+    function getEvent() {
+        $data = Events::get();
+        return $data;
+    }
+
     function getSingleData($id) {
         $data = Certificates::with(['Participant', 'Event'])->find($id);
         return $data;
@@ -18,11 +24,15 @@ class CertificateRepository
 
     function getData($n) {
         $search = request('search');
+        $event_id = request('event_id');
         $data = Certificates::with(['Participant', 'Event']);
         if ($search) {
             $data = $data->whereHas('Participant', function($query) use($search) {
                 $query->where('name', 'like', '%' . $search . '%');
             });
+        }
+        if ($event_id != 'all') {
+            $data = $data->where('event_id', $event_id);
         }
         $data = $data->orderBy('status', 'asc');
         return $data->paginate($n);
@@ -57,19 +67,22 @@ class CertificateRepository
         }
         $nama = $participant->name;
         $token = $participant->qr_code;
+        $event_name = $participant->Event->name;
+        $date = \Carbon\Carbon::now()->format('d F Y');
+        $participation_name = $participant->name;
         $qr_code_path = public_path('images/certificate/qr-code/img-' . $token . '.png');
         $filename = 'SERTIFIKAT.pdf';
-        $certificatename = $participant->Event->name . '-' . $token . '.pdf';
-        $outputFolder = public_path('certificates/new'); // Folder tujuan
+        $certificatename = $token . '.pdf';
+        $outputFolder = public_path('certificates/new');
         $outputfile = $outputFolder . '/' . $certificatename;
 
         // Buat folder jika belum ada
         if (!file_exists($outputFolder)) {
             mkdir($outputFolder, 0777, true);
         }
-
         // Coba menyimpan sertifikat
-        $success = $this->fillPDF(public_path() . "/template/certificate/" . $filename, $outputfile, $nama, $token, $qr_code_path);
+        // $success = $this->fillPDF(public_path() . "/template/certificate/" . $filename, $outputfile, $nama, $token, $qr_code_path);
+        $this->fillPDFDouble(public_path() . "/template/certificate/" . $filename, $outputfile, $nama, $event_name, $participation_name, $date, $token, $qr_code_path);
         $message = [
             'status' => true,
             'message' => 'Successfully saved'
@@ -111,6 +124,58 @@ class CertificateRepository
         }
 
         return $fpdi->Output($outputfile, 'F');
+    }
+
+    public function fillPDFDouble($file, $outputfile, $participantName, $eventName, $participationName, $date, $token, $path_qr) {
+        $fpdi = new FPDI();
+        $pageCount = $fpdi->setSourceFile($file);
+
+        for ($pageNumber = 1; $pageNumber <= $pageCount; $pageNumber++) {
+            $template = $fpdi->importPage($pageNumber);
+            $size = $fpdi->getTemplateSize($template);
+            $fpdi->AddPage($size['orientation'], [$size['width'], $size['height']]);
+            $fpdi->useTemplate($template);
+
+            // Tambahkan Nama di Tengah Halaman
+            $fpdi->SetFont("helvetica", "B", 27);
+            $fpdi->SetTextColor(25, 26, 25);
+            $centerX = 11;
+            $centerY = ($size['height'] / 2 - 28);
+            $fpdi->Text($centerX, $centerY, $participantName);
+
+            // Tambahkan Partisipasi
+            $fpdi->SetFont("helvetica", "B", 27);
+            $fpdi->SetTextColor(25, 26, 25);
+            $centerX = 11;
+            $centerY = ($size['height'] / 2 + 14);
+            $fpdi->Text($centerX, $centerY, $participationName);
+            // Tambahkan Event Name
+            $fpdi->SetFont("helvetica", "B", 27);
+            $fpdi->SetTextColor(25, 26, 25);
+            $centerX = 11;
+            $centerY = ($size['height'] / 1.5 + 18);
+            $fpdi->Text($centerX, $centerY, $eventName);
+
+            // Tambahkan Tanggal
+            $fpdi->SetFont("helvetica", "B", 27);
+            $fpdi->SetTextColor(25, 26, 25);
+            $centerX = 11;
+            $centerY = ($size['height'] / 1.1);
+            $fpdi->Text($centerX, $centerY, $date);
+
+            // Tambahkan Token di Bagian Bawah Kiri
+            $tokenText = $token;
+            $fpdi->SetFont("helvetica", "", 10);
+            $fpdi->SetTextColor(25, 26, 25);
+            $fpdi->Text(10, $size['height'] - 10, $tokenText);
+
+            // Tambahkan Kode QR di Paling Kanan Bawah
+            $qrSize = 40;
+            $qrX = ($size['width'] - $qrSize) / 2 + 22;
+            $qrY = ($size['height'] / 2) + 33;
+            $fpdi->Image($path_qr, $qrX, $qrY, $qrSize, $qrSize);
+        }
+        return $fpdi->Output($outputfile,'F');
     }
 
     function checkCertificate($token) {

@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Register Event | Boxity</title>
+    <title>Attendance Event | Boxity</title>
     <meta name="csrf-token" content="{{ csrf_token() }}" />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <!-- inject:css-->
@@ -52,7 +52,7 @@
                     <img src="{{ asset('brand/logo primary.png') }}" width="230px"
                         style="padding-top:30px; padding-bottom:30px;" alt="boxity">
                     <div class="user-member justify-content-center">
-                        <small>Register your data to this event</small>
+                        <small>Fill your data for attendance this event</small>
                         <h4 class="text-capitalize fw-500 breadcrumb-title" style="font-weight: bold;">
                             {{ ucfirst($event->name) }}
                         </h4>
@@ -69,14 +69,14 @@
                                         style="width: 100%; height: 100%; object-fit: cover;">
                                 </div>
                             </div>
-                            <form id="formRegister">
+                            <form id="formAttendance">
                                 @csrf
                                 <div class="row justify-content-center">
                                     <div class="col-md-6">
                                         <div class="row mt-2">
                                             <div class="col">
                                                 <div class="form-group text-left">
-                                                    <label for="formGroupExampleInput"
+                                                    <label for="deskripsi"
                                                         class="color-dark fs-14 fw-500 align-center">Deskripsi
                                                         Event</label>
                                                     <p>{{ $event->description }}</p>
@@ -86,107 +86,68 @@
                                         <div class="row">
                                             <div class="col">
                                                 <div class="form-group">
-                                                    <label for="formGroupExampleInput"
+                                                    <label for="nama"
                                                         class="color-dark fs-14 fw-500 align-center">Nama
                                                         Lengkap <small class="text-danger">*</small></label>
                                                     <input type="text"
                                                         class="form-control ih-medium ip-gray radius-xs b-light px-15"
-                                                        id="formGroupExampleInput" name="name" required>
+                                                        id="nama" name="name" required>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="col">
                                                 <div class="form-group">
-                                                    <label for="formGroupExampleInput"
+                                                    <label for="email"
                                                         class="color-dark fs-14 fw-500 align-center">Email <small
                                                             class="text-danger">*</small></label>
                                                     <input type="email"
                                                         class="form-control ih-medium ip-gray radius-xs b-light px-15"
-                                                        id="formGroupExampleInput" name="email" required>
+                                                        id="email" name="email" required>
                                                 </div>
                                             </div>
+                                        </div>
+                                        <div class="row">
                                             <div class="col">
                                                 <div class="form-group">
-                                                    <label for="formGroupExampleInput"
+                                                    <label for="no_hp"
                                                         class="color-dark fs-14 fw-500 align-center">No. Hp / No. WA
                                                         aktif <small class="text-danger">*</small></label>
                                                     <input type="number" maxlength="15"
                                                         class="form-control ih-medium ip-gray radius-xs b-light px-15"
-                                                        id="formGroupExampleInput" name="no_hp" required>
+                                                        id="no_hp" name="no_hp" required>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="col">
                                                 <div class="form-group">
-                                                    <label for="formGroupExampleInput"
+                                                    <label for="Instansi"
                                                         class="color-dark fs-14 fw-500 align-center">Instansi </label>
                                                     <input type="text"
                                                         class="form-control ih-medium ip-gray radius-xs b-light px-15"
-                                                        id="formGroupExampleInput" name="instansi">
+                                                        id="Instansi" name="instansi">
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="col">
                                                 <div class="form-group">
-                                                    <label for="formGroupExampleInput"
-                                                        class="color-dark fs-14 fw-500 align-center">Pekerjaan </label>
-                                                    <input type="text"
-                                                        class="form-control ih-medium ip-gray radius-xs b-light px-15"
-                                                        id="formGroupExampleInput" name="pekerjaan">
-                                                </div>
-                                            </div>
-                                            <div class="col">
-                                                <div class="form-group">
-                                                    <label for="formGroupExampleInput"
+                                                    <label for="jabatan"
                                                         class="color-dark fs-14 fw-500 align-center">Jabatan </label>
                                                     <input type="text"
                                                         class="form-control ih-medium ip-gray radius-xs b-light px-15"
-                                                        id="formGroupExampleInput" name="jabatan">
+                                                        id="jabatan" name="jabatan">
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="row">
-                                            <div class="col">
-                                                <div class="form-group form-element-textarea">
-                                                    <label for="exampleFormControlTextarea1"
-                                                        class="il-gray fs-14 fw-500 align-center">Alamat
-                                                        Instansi</label>
-                                                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="alamat_instansi"></textarea>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col">
-                                                <div class="form-group">
-                                                    <label for="formGroupExampleInput"
-                                                        class="color-dark fs-14 fw-500 align-center">Penginapan
-                                                    </label>
-                                                    <input type="text"
-                                                        class="form-control ih-medium ip-gray radius-xs b-light px-15"
-                                                        id="formGroupExampleInput" name="penginapan">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col">
-                                                <div class="form-group">
-                                                    <label for="formGroupExampleInput"
-                                                        class="color-dark fs-14 fw-500 align-center">Ukuran
-                                                        Baju <small class="text-danger">*</small></label>
-                                                    <div class="atbd-select">
-                                                        <select name="size" id="select-search"
-                                                            class="form-control">
-                                                            @foreach (Helper::getSizes() as $key => $value)
-                                                                <option value="{{ $key }}">
-                                                                    {{ $value }}</option>
-                                                            @endforeach
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                        <div class="form-check mb-3">
+                                            <input class="form-check-input" type="checkbox" value="1"
+                                                id="check">
+                                            <label class="form-check-label" for="check">
+                                                Saya benar menyatakan bahwa saya telah menghadiri seluruh
+                                                rangkaian kegiatan ini
+                                            </label>
                                         </div>
                                         <button type="submit" class="btn btn-warning w-100"
                                             style="background-color: #2a4594">Submit</button>
@@ -286,20 +247,20 @@
             }
         })
 
-        $('#formRegister').on('submit', function(event) {
+        $('#formAttendance').on('submit', function(event) {
             event.preventDefault();
-            var registerForm = $('#formRegister');
+            var attendanceForm = $('#formAttendance');
             var loader = $('.loader-overlay');
             var event_name = "{{ Helper::strReplace($event->name, ' ', '-') }}";
-            var token = "{{ $event->token }}";
+            var token = "{{ $event->token }}"
             $.ajax({
-                url: `{{ url('/register/${event_name}/${token}') }}`,
+                url: `{{ url('/attendance/${event_name}/${token}') }}`,
                 type: "POST",
-                data: registerForm.serialize(),
+                data: attendanceForm.serialize(),
                 dataType: "json",
                 beforeSend: function() {
                     loader.show();
-                    registerForm.find('button[type="submit"]').prop('disabled', true);
+                    attendanceForm.find('button[type="submit"]').prop('disabled', true);
                 },
                 complete: function() {
                     loader.hide();
@@ -322,7 +283,7 @@
                 },
                 error: function(xhr, status, error) {
                     loader.hide();
-                    registerForm.find('button[type="submit"]').prop('disabled', false);
+                    attendanceForm.find('button[type="submit"]').prop('disabled', false);
                     Toast.fire({
                         icon: 'success',
                         title: 'Something Was Wrong'

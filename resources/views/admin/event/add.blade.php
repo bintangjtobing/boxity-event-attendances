@@ -96,8 +96,19 @@
                     <div class="card-body">
                         <p class="color-dark fw-500 fs-20 mb-3">Detail {{ ucfirst(Helper::getCurrentUrlAdmin()) }}</p>
                         <div class="Vertical-form">
-                            <form id="formAdd">
+                            <form id="formAdd" enctype="multipart/form-data">
                                 @csrf
+                                <div class="row">
+                                    <div class="col-md">
+                                        <label for="formGroupExampleInput2"
+                                            class="color-dark fs-14 fw-500 align-center">Cover Event</label>
+                                        <input type="file" id="file" name="cover" hidden>
+                                        <div id="preview-image">
+                                        </div>
+                                        <button type="button"
+                                            class="btn btn-sm btn-info btn-default btn-squared px-20 upload">upload</button>
+                                    </div>
+                                </div>
                                 <div class="form-group">
                                     <label for="formGroupExampleInput"
                                         class="color-dark fs-14 fw-500 align-center">Event Name</label>
@@ -108,6 +119,17 @@
                                     <label for="exampleFormControlTextarea1"
                                         class="il-gray fs-14 fw-500 align-center">Location</label>
                                     <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="location"></textarea>
+                                </div>
+                                <div class="form-group form-element-textarea">
+                                    <label for="exampleFormControlTextarea2"
+                                        class="il-gray fs-14 fw-500 align-center">Description</label>
+                                    <textarea class="form-control" id="exampleFormControlTextarea2" rows="3" name="description"></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label for="formGroupExampleInput1"
+                                        class="color-dark fs-14 fw-500 align-center">Payment Link</label>
+                                    <input type="text" class="form-control ih-medium ip-gray radius-xs b-light px-15"
+                                        id="formGroupExampleInput1" name="payment_link">
                                 </div>
                                 <div class="row">
                                     <div class="col-md">
@@ -209,13 +231,17 @@
     $('#formAdd').submit(function(e) {
         $(".submit").prop('disabled', true);
         e.preventDefault();
-        $('.is-invalid').each(function() {
-            $('.is-invalid').removeClass('is-invalid');
-        });
+        $('.is-invalid').removeClass('is-invalid');
+
+        var formData = new FormData($('#formAdd')[0]);
+        formData.append('_token', "{{ csrf_token() }}");
+
         $.ajax({
             url: "{{ route('event_add_post') }}",
             type: "POST",
-            data: $('#formAdd').serialize(),
+            data: formData,
+            contentType: false,
+            processData: false,
             success: function(res) {
                 if (res.status == true) {
                     Swal.fire({
@@ -253,5 +279,27 @@
             }
         });
         return false;
-    })
+    });
+
+    $(".upload").on("click", function() {
+        $("#file").click();
+    });
+
+    $("#file").on("change", function() {
+        var fileInput = $(this)[0];
+        var files = fileInput.files;
+
+        if (files.length > 0) {
+            var reader = new FileReader();
+
+            // Ketika pembacaan file selesai
+            reader.onload = function(e) {
+                // Tampilkan preview gambar
+                $("#preview-image").html('<img src="' + e.target.result + '" alt="Preview Image">');
+            };
+
+            // Baca file sebagai URL data
+            reader.readAsDataURL(files[0]);
+        }
+    });
 </script>

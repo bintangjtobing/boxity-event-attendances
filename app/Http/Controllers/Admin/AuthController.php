@@ -79,7 +79,7 @@ class AuthController extends Controller
                     $save_certificate = $this->sertifikat->getPathFile();
                     if ($save_certificate['status'] == true) {
                         $this->certificate->sendCertificate($check);
-                        $this->certificate->sendCertificateToWa($check);
+                        // $this->certificate->sendCertificateToWa($check);
                         $this->certificate->updateSendedCertificate($check);
                     }
                 }

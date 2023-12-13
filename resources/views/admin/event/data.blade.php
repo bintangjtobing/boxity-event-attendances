@@ -15,6 +15,9 @@
                     <th>
                         <span class="userDatatable-title">Registration Link</span>
                     </th>
+                    <th>
+                        <span class="userDatatable-title">Attendance Link</span>
+                    </th>
                     {{-- <th>
                         <span class="userDatatable-title float-right">Action</span>
                     </th> --}}
@@ -23,7 +26,7 @@
             <tbody>
                 @if (count($events) == 0)
                     <tr>
-                        <td colspan="3">
+                        <td colspan="5">
                             <div class="userDatatable-content text-center">
                                 No data
                             </div>
@@ -44,18 +47,31 @@
                         </td>
                         <td>
                             <div class="userDatatable-content">
-                                {{ $value->start_date }} | {{ $value->start_time }} until {{ $value->end_date }} |
-                                {{ $value->end_time }}
+                                {{ \Carbon\Carbon::parse($value->start_date)->format('d M Y') }}
+                                {{ \Carbon\Carbon::parse($value->start_time)->format('H:i') }} -
+                                {{ \Carbon\Carbon::parse($value->end_date)->format('d M Y') }}
+                                {{ \Carbon\Carbon::parse($value->end_time)->format('H:i') }}
                             </div>
                         </td>
                         <td>
                             <div class="userDatatable-content">
                                 @if ($value->status == 'active')
-                                    <a href="{{ route('events_register', ['name' => Helper::strReplace($value->name, ' ', '-')]) }}"
+                                    <a href="{{ route('events_register', ['name' => Helper::strReplace($value->name, ' ', '-'), 'token' => $value->token]) }}"
                                         target="_blank">Link
                                         Pendaftaran</a>
                                 @else
                                     <s>Link Pendaftaran</s>
+                                @endif
+                            </div>
+                        </td>
+                        <td>
+                            <div class="userDatatable-content">
+                                @if ($value->status == 'active')
+                                    <a href="{{ route('events_attendance', ['name' => Helper::strReplace($value->name, ' ', '-'), 'token' => $value->token]) }}"
+                                        target="_blank">Link
+                                        Kehadiran</a>
+                                @else
+                                    <s>Link Kehadiran</s>
                                 @endif
                             </div>
                         </td>
@@ -79,5 +95,8 @@
                 @endforeach
             </tbody>
         </table>
+        <div class="mt-3 d-flex justify-content-center">
+            {{ $events->links() }}
+        </div>
     </div>
 </div>

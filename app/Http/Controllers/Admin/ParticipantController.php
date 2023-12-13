@@ -63,9 +63,9 @@ class ParticipantController extends Controller
                 if ($data['email'] != null) {
                     $this->qr_code->sendQrCode($data['token']);
                 }
-                if ($data['no_hp'] != null) {
-                    $this->qr_code->sendQrCodeToWa($data);
-                }
+                // if ($data['no_hp'] != null) {
+                //     $this->qr_code->sendQrCodeToWa($data);
+                // }
                 DB::commit();
                 $message = [
                     'status' => true,
@@ -196,16 +196,16 @@ class ParticipantController extends Controller
         if ($participant->email != null) {
             $this->qr_code->sendQrCode($participant->qr_code);
         }
-        if ($participant->no_hp != null) {
-            $data = [
-                'status' => true,
-                'message' => 'Registration success',
-                'token' => $participant->qr_code,
-                'no_hp' => $participant->no_hp,
-                'email' => $participant->email
-            ];
-            $this->qr_code->sendQrCodeToWa($data);
-        }
+        // if ($participant->no_hp != null) {
+        //     $data = [
+        //         'status' => true,
+        //         'message' => 'Registration success',
+        //         'token' => $participant->qr_code,
+        //         'no_hp' => $participant->no_hp,
+        //         'email' => $participant->email
+        //     ];
+        //     $this->qr_code->sendQrCodeToWa($data);
+        // }
         $message = [
             'status' => true,
             'message' => 'The Qr Code has been successfully sent.'

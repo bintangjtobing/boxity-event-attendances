@@ -10132,9 +10132,10 @@ table.table-basic tr td.card .card-body,
     background-color: #fff;
     border: 1px solid #e3e6ef;
     border-radius: 4px;
-    height: 48px;
+    height: 40px;
     display: flex;
     align-items: center;
+    width:170px;
 }
 
 .select2-container--default .select2-selection--single:focus,
@@ -25447,3 +25448,9 @@ body:after {
 }
 
 /*# sourceMappingURL=maps/style.css.map */
+
+#preview-image img {
+    width: 820px;
+    height: 312px;
+    margin-bottom: 5px;
+}

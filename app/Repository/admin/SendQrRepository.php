@@ -15,7 +15,8 @@ class SendQrRepository
 {
     public function sendQrCode($token)
     {
-        $image = QrCode::format('png')->merge('https://res.cloudinary.com/boxity-id/image/upload/v1693136775/Logo_ABPPTSI_nfb8ns.png', .2, true)->errorCorrection('H')->size(200)->generate($token);
+        // $image = QrCode::format('png')->merge('https://res.cloudinary.com/boxity-id/image/upload/v1693136775/Logo_ABPPTSI_nfb8ns.png', .2, true)->errorCorrection('H')->size(200)->generate($token);
+        $image = QrCode::format('png')->merge(public_path('brand/App icon - primary orange color.png'), .2, true)->errorCorrection('H')->size(200)->generate($token);
         $output_file = public_path('images/participant/qr-code/img-' . time() . '.png');
         file_put_contents($output_file, $image);
         $participant = Participants::with('Event')->where('qr_code', $token)->first();

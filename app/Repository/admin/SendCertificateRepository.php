@@ -66,7 +66,8 @@ class SendCertificateRepository
         }
 
         $verif = route('certificate_verification', ['token' => $token]);
-        $image = QrCode::format('png')->merge('https://res.cloudinary.com/boxity-id/image/upload/v1693136775/Logo_ABPPTSI_nfb8ns.png', .2, true)->errorCorrection('H')->size(200)->generate($verif);
+        // $image = QrCode::format('png')->merge('https://res.cloudinary.com/boxity-id/image/upload/v1693136775/Logo_ABPPTSI_nfb8ns.png', .2, true)->errorCorrection('H')->size(200)->generate($verif);
+        $image = QrCode::format('png')->merge(public_path('brand/App icon - primary orange color.png'), .2, true)->errorCorrection('H')->size(200)->generate($verif);
         $output_file = public_path('images/certificate/qr-code/img-' . $token . '.png');
         file_put_contents($output_file, $image);
     }

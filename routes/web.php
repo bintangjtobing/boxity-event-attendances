@@ -33,8 +33,12 @@ Route::prefix('/')->group(function () {
     Route::get('/logout', [AdminAuthController::class, 'processLogout'])->name('admin_logout');
 
     //Register Event
-    Route::get('/register/{name}', [AdminEventController::class, 'register'])->name('events_register');
-    Route::post('/register/{name}', [AdminEventController::class, 'processRegistration'])->name('event_processRegistration');
+    Route::get('/register/{name}/{token}', [AdminEventController::class, 'register'])->name('events_register');
+    Route::post('/register/{name}/{token}', [AdminEventController::class, 'processRegistration'])->name('event_processRegistration');
+
+    //Attendance Event
+    Route::get('/attendance/{name}/{token}', [AdminEventController::class, 'attendance'])->name('events_attendance');
+    Route::post('/attendance/{name}/{token}', [AdminEventController::class, 'processAttendance'])->name('event_processAttendance');
 
     //get Qr Code
     Route::get('/qr-code/{token}', [AdminEventController::class, 'getQrCode'])->name('event_getQrCode');

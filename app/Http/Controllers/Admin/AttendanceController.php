@@ -18,7 +18,8 @@ class AttendanceController extends Controller
 
     public function view()
     {
-        $content = view('admin.attendance.view');
+        $data['events'] = $this->repo->getEvent();
+        $content = view('admin.attendance.view', $data);
         return view('admin.main', compact('content'));
     }
 

@@ -114,9 +114,9 @@ class EventController extends Controller
         return response()->json($message);
     }
 
-    public function register($name)
+    public function register($name, $token)
     {
-        $data['event'] = $this->repo->getSingleEvent($name);
+        $data['event'] = $this->repo->getSingleEvent($name, $token);
 
         if (!$data['event']) {
             return view('admin.event.register.not_found');
@@ -151,9 +151,67 @@ class EventController extends Controller
                     //save qrcode attendance
                     $this->qr_code->sendQrCode($check['token']);
                 }
-                if ($check['no_hp'] != null) {
-                    $this->qr_code->sendQrCodeToWa($check);
-                }
+                // if ($check['no_hp'] != null) {
+                //     $this->qr_code->sendQrCodeToWa($check);
+                // }
+                DB::commit();
+                $message = [
+                    'status' => true,
+                    'message' => $check['message']
+                ];
+            } else {
+                $message = [
+                    'status' => false,
+                    'error' => $check['message']
+                ];
+            }
+        } catch (\Exception $exception) {
+            DB::rollback();
+            $message = [
+                'status' => false,
+                'error' => $exception->getMessage()
+            ];
+        }
+        return response()->json($message);
+    }
+
+    public function attendance($name, $token)
+    {
+        $data['event'] = $this->repo->getSingleEvent($name, $token);
+
+        if (!$data['event']) {
+            return view('admin.event.register.not_found');
+        }
+        if ($data['event']->status == 'inactive') {
+            return view('admin.event.register.inactive');
+        }
+        $timezone = 'Asia/Jakarta';
+        $currentTime = \Carbon\Carbon::now($timezone);
+        $currentDate = \Carbon\Carbon::now($timezone)->format('Y-m-d');
+
+        if (\Carbon\Carbon::parse($data['event']->start_date) < $currentDate) {
+            return view('admin.event.register.expired');
+        }
+
+        // $datetime_event = \Carbon\Carbon::parse($data['event']->start_date . ' ' . $data['event']->start_time);
+        // if ($datetime_event->format('Y-m-d H:i:s') < $currentTime->format('Y-m-d H:i:s')) {
+        //     return view('admin.event.register.has_started');
+        // }
+        return view('admin.event.attendance.attendance', $data);
+    }
+
+    public function processAttendance(Request $request, $name, $token)
+    {
+        DB::beginTransaction();
+        try {
+            $check = $this->repo->processAttendance($name, $token);
+            if ($check['status'] == true) {
+                $save_certificate = $this->sertifikat->getPathFile($check['participant_id']);
+                    if ($save_certificate['status'] == true) {
+                        $this->certificate->sendCertificate($check);
+                        // $this->certificate->sendCertificateToWa($check);
+                        $this->certificate->updateSendedCertificate($check);
+                    }
                 DB::commit();
                 $message = [
                     'status' => true,

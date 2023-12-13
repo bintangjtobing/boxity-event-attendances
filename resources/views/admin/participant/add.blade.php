@@ -129,6 +129,12 @@
                                         id="formGroupExampleInput" name="jabatan">
                                 </div>
                                 <div class="form-group">
+                                    <label for="formGroupExampleInput"
+                                        class="color-dark fs-14 fw-500 align-center">Pekerjaan</label>
+                                    <input type="text" class="form-control ih-medium ip-gray radius-xs b-light px-15"
+                                        id="formGroupExampleInput" name="pekerjaan">
+                                </div>
+                                <div class="form-group">
                                     <label for="formGroupExampleInput" class="color-dark fs-14 fw-500 align-center">No
                                         Hp <small class="text-danger">*</small></label>
                                     <input type="number" maxlength="15"

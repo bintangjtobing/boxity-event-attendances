@@ -85,7 +85,16 @@
             <div class="card">
                 <div class="card-header color-dark fw-500">
                     {{ Helper::getCurrentUrlAdmin() }} Data
-                    <form id="formFilter">
+                    <form id="formFilter" class="d-flex">
+                        <div class="project-category__select mt-3 mr-3">
+                            <select class="js-example-basic-single js-states form-control" name="event_id"
+                                id="event_id" onchange="searchData()">
+                                <option value="all" selected>event name</option>
+                                @foreach ($events as $item)
+                                    <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
                         <div id="filter-form-container">
                             <div class="form-group footable-filtering-search"><label class="sr-only">Search</label>
                                 <div class="input-group"><input type="text" class="form-control" placeholder="Search"
@@ -100,32 +109,8 @@
                         </div>
                     </form>
                 </div>
-                <div class="card-body p-0">
-                    <div class="table4  p-25 bg-white mb-30">
-                        <div class="table-responsive">
-                            <table class="table mb-0">
-                                <thead>
-                                    <tr class="userDatatable-header">
-                                        <th>
-                                            <span class="userDatatable-title">ID Participant</span>
-                                        </th>
-                                        <th>
-                                            <span class="userDatatable-title">Participant Name</span>
-                                        </th>
-                                        <th>
-                                            <span class="userDatatable-title">Acara</span>
-                                        </th>
-                                        <th>
-                                            <span class="userDatatable-title">Status Kehadiran</span>
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tbody id="data">
+                <div class="card-body p-0" id="data">
 
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>

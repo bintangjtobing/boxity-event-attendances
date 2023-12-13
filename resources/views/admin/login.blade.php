@@ -6,8 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Event Attedances Dashboard | Boxity</title>
-    <link rel="icon" type="image/png" sizes="16x16"
-        href="https://res.cloudinary.com/boxity-id/image/upload/v1693136775/Logo_ABPPTSI_nfb8ns.png">
+    {{-- <link rel="icon" type="image/png" sizes="16x16"
+        href="https://res.cloudinary.com/boxity-id/image/upload/v1693136775/Logo_ABPPTSI_nfb8ns.png"> --}}
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('brand/App icon - primary orange color.png') }}">
 
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
@@ -51,8 +52,9 @@
                             <div class="signUP-admin-left__content">
                                 <div
                                     class="text-capitalize mb-md-30 mb-15 d-flex align-items-center justify-content-md-start justify-content-center">
-                                    <img src="https://res.cloudinary.com/boxity-id/image/upload/v1693136775/Logo_ABPPTSI_nfb8ns.png"
-                                        alt="boxity" width="110px">
+                                    {{-- <img src="https://res.cloudinary.com/boxity-id/image/upload/v1693136775/Logo_ABPPTSI_nfb8ns.png"
+                                        alt="boxity" width="110px"> --}}
+                                    <img src="{{ asset('brand/logo primary.png') }}" alt="boxity" width="230px">
                                 </div>
                                 <h1>Admin Attendance Web Application</h1>
                             </div><!-- End: .signUP-admin-left__content  -->

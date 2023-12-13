@@ -15,6 +15,9 @@ class Events extends Model
         'start_time',
         'end_time',
         'token',
-        'status'
+        'status',
+        'cover_path',
+        'description',
+        'payment_link',
     ];
 }

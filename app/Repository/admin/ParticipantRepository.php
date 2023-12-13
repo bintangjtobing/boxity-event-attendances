@@ -46,9 +46,13 @@ class ParticipantRepository
 
     function getData($n) {
         $search = request('search');
+        $event_id = request('event_id');
         $data = Participants::orderBy('participant_id', 'desc');
         if ($search) {
             $data = $data->where('name', 'like', '%' . $search . '%');
+        }
+        if ($event_id != 'all') {
+            $data = $data->where('event_id', $event_id);
         }
         return $data->paginate($n);
     }
@@ -66,6 +70,7 @@ class ParticipantRepository
             'event_id' => request('event_id'),
             'name' => request('name'),
             'jabatan' => request('jabatan'),
+            'pekerjaan' => request('pekerjaan'),
             'no_hp' => request('no_hp'),
             'email' => request('email'),
             'instansi' => request('instansi'),
