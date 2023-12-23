@@ -28,8 +28,10 @@
     <link rel="stylesheet" href="{{ asset('assets/vendor_assets/css/wickedpicker.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <!-- endinject -->
+    {{-- <link rel="icon" type="image/png" sizes="16x16"
+        href="https://res.cloudinary.com/boxity-id/image/upload/v1693136775/Logo_ABPPTSI_nfb8ns.png"> --}}
     <link rel="icon" type="image/png" sizes="16x16"
-        href="https://res.cloudinary.com/boxity-id/image/upload/v1693136775/Logo_ABPPTSI_nfb8ns.png">
+        href="https://res.cloudinary.com/boxity-id/image/upload/v1678791753/asset_boxity/logo/icon-web_qusdsv.png">
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 </head>
 
@@ -46,8 +48,8 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-12 text-center">
-                    <img src="https://res.cloudinary.com/boxity-id/image/upload/v1693136775/Logo_ABPPTSI_nfb8ns.png"
-                        width="120px" style="padding-top:30px;" alt="boxity">
+                    <img src="{{ asset('brand/logo primary.png') }}" width="120px" style="padding-top:30px;"
+                        alt="boxity">
                     <div class="breadcrumb-main user-member justify-content-center">
                         <h4 class="fw-500 breadcrumb-title">
                             Mohon tunjukkan kode QR anda <br> untuk memvalidasi kehadiran anda.
